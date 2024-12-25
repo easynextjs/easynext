@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { commandModules } from './commands';
-import { GlobalModule } from './global/global.module';
+import { ConfigModule } from './global/config/config.module';
 
 @Module({
-  imports: [...commandModules, GlobalModule],
+  imports: [...commandModules, ConfigModule.forRootAsync()],
 })
 export class AppModule {}

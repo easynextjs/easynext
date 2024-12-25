@@ -1,5 +1,5 @@
-import type { GlobalConfig } from '@/global/global-config';
-import type { AuthConfig } from '@/global/auth-config';
+import type { GlobalConfig } from '@/global/config/global.config';
+import type { AuthConfig } from '@/global/config/auth.config';
 
 export const defaultGlobalConfig: GlobalConfig = {
   '// Note':

@@ -7,7 +7,7 @@ import output from '@/output-manager';
 @Command({ name: 'doctor', description: 'Check the health of the system' })
 export class DoctorCommand extends AbstractCommand {
   async run() {
-    output.log('Doctor is checking the system');
+    output.info('Doctor is checking the system');
 
     this.checkNodeVersion();
     this.checkGitInstalled();
@@ -23,7 +23,7 @@ export class DoctorCommand extends AbstractCommand {
         `Node.js version ${nodeVersion} is not supported. Please upgrade to at least ${requiredVersion}.`,
       );
     } else {
-      output.log(`✨ Node.js version ${nodeVersion} is supported.`);
+      output.info(`✨ Node.js version ${nodeVersion} is supported.`);
     }
   }
 
@@ -31,7 +31,7 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('git -v', { stdio: 'ignore' });
 
-      output.log('✨ Git is installed.');
+      output.info('✨ Git is installed.');
     } catch {
       output.error('Git is not installed. Please install Git.');
     }
@@ -41,7 +41,7 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('vercel -v', { stdio: 'ignore' });
 
-      output.log('✨ Vercel is installed.');
+      output.info('✨ Vercel is installed.');
     } catch {
       output.error('Vercel is not installed. Please install Vercel.');
     }
@@ -49,7 +49,7 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('vercel whoami', { stdio: 'pipe' });
 
-      output.log('✨ Vercel is authenticated.');
+      output.info('✨ Vercel is authenticated.');
     } catch (error: unknown) {
       const noCredentials =
         error instanceof Error &&

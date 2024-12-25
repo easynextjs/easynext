@@ -93,7 +93,11 @@ export class Output {
     this.stream.write(str);
   };
 
-  log = (str: string, color = chalk.grey) => {
+  log = (..._args: any) => {
+    return _args;
+  };
+
+  info = (str: string, color = chalk.grey) => {
     this.print(`${color('>')} ${str}\n`);
   };
 

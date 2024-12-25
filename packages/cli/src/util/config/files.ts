@@ -6,8 +6,8 @@ import highlight from '../output/highlight';
 import { isErrnoException } from '@vercel/error-utils';
 
 import output from '@/output-manager';
-import { GlobalConfig } from '@/global/global-config';
-import { AuthConfig } from '@/global/auth-config';
+import { GlobalConfig } from '@/global/config/global.config';
+import { AuthConfig } from '@/global/config/auth.config';
 
 const EASYNEXT_DIR = getGlobalPathConfig();
 const CONFIG_FILE_PATH = join(EASYNEXT_DIR, 'config.json');

@@ -30,7 +30,7 @@ $ pnpm add -g @easynext/cli
 # Check tools installation
 $ easynext doctor
 
-# set language
+# Set language
 $ easynext lang <'ko' | 'en'>
 ```
 

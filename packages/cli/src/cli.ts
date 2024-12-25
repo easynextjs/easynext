@@ -15,6 +15,7 @@ import { CommandFactory } from 'nest-commander';
 import { AppModule } from './app.module';
 import { Logger } from './global/logger';
 import { hp } from './util/humanize-path';
+import * as eh from './util/error-handler';
 
 import { version as PACKAGE_VERSION } from '../package.json';
 
@@ -43,6 +44,9 @@ async function main() {
 
   return 0;
 }
+
+process.on('unhandledRejection', eh.handleRejection);
+process.on('uncaughtException', eh.handleUnexpected);
 
 main().then((code) => {
   process.exitCode = code;

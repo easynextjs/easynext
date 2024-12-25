@@ -1,7 +1,7 @@
 <div align="center">
   <a href="https://github.com/easynextjs">
     <picture>
-      <img alt="EasyNext logo" src="https://avatars.githubusercontent.com/u/192373381" height="128">
+      <img alt="EasyNext logo" src="https://i.ibb.co/3sL9b23/logo.png" height="128">
     </picture>
   </a>
   <h1>EasyNext</h1>

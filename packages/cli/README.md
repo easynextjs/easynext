@@ -13,7 +13,7 @@
 
 > Depends on Cursor, Vercel, next-ui, Supabase
 
-Easiest way to start Next.js project ⚡️ [한글](./README.ko.md)
+Easiest way to start Next.js project ⚡️ [한글](https://github.com/easynextjs/easynext/blob/main/packages/cli/README.ko.md)
 
 ## Installiation
 
@@ -57,4 +57,4 @@ $ easynext google-sheet
 
 ## License
 
-[MIT](https://github.com/nestjs/nest/blob/master/LICENSE).
+[MIT](https://github.com/easynextjs/easynext/blob/main/LICENSE).

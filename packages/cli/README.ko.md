@@ -57,4 +57,4 @@ $ easynext google-sheet
 
 ## 라이선스
 
-[MIT](https://github.com/nestjs/nest/blob/master/LICENSE).
+[MIT](https://github.com/easynextjs/easynext/blob/main/LICENSE).

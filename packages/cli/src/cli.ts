@@ -1,6 +1,6 @@
 import { CommandFactory } from 'nest-commander';
 import { AppModule } from './app.module';
-import { Logger } from './logger';
+import { Logger } from './global/logger';
 
 import { version as PACKAGE_VERSION } from '../package.json';
 

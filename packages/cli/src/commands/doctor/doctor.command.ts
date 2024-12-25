@@ -1,6 +1,6 @@
 import { Command } from 'nest-commander';
 import { lt } from 'semver';
-import { Logger } from '@/logger';
+import { Logger } from '@/global/logger';
 import { execSync } from 'child_process';
 import { AbstractCommand } from '../abstract.command';
 

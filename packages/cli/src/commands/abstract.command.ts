@@ -1,5 +1,5 @@
 import { CommandRunner } from 'nest-commander';
-import { Logger } from '../logger';
+import { Logger } from '@/global/logger';
 
 export abstract class AbstractCommand extends CommandRunner {
   constructor(protected readonly logger: Logger) {

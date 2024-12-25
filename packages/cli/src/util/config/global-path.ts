@@ -4,7 +4,6 @@ import XDGAppPaths from 'xdg-app-paths';
 // Returns whether a directory exists
 export const isDirectory = (path: string): boolean => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return lstatSync(path).isDirectory();
   } catch {
     // We don't care which kind of error occured, it isn't a directory anyway.

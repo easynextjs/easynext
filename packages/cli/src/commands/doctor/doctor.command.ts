@@ -1,17 +1,13 @@
 import { Command } from 'nest-commander';
 import { lt } from 'semver';
-import { Logger } from '@/global/logger';
 import { execSync } from 'child_process';
 import { AbstractCommand } from '../abstract.command';
+import output from '@/output-manager';
 
 @Command({ name: 'doctor', description: 'Check the health of the system' })
 export class DoctorCommand extends AbstractCommand {
-  constructor(protected readonly logger: Logger) {
-    super(logger);
-  }
-
   async run() {
-    this.logger.info('Doctor is checking the system');
+    output.log('Doctor is checking the system');
 
     this.checkNodeVersion();
     this.checkGitInstalled();
@@ -23,11 +19,11 @@ export class DoctorCommand extends AbstractCommand {
     const requiredVersion = 'v20.10.0';
 
     if (lt(nodeVersion, requiredVersion)) {
-      this.logger.error(
+      output.error(
         `Node.js version ${nodeVersion} is not supported. Please upgrade to at least ${requiredVersion}.`,
       );
     } else {
-      this.logger.info(`✨ Node.js version ${nodeVersion} is supported.`);
+      output.log(`✨ Node.js version ${nodeVersion} is supported.`);
     }
   }
 
@@ -35,9 +31,9 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('git -v', { stdio: 'ignore' });
 
-      this.logger.info('✨ Git is installed.');
+      output.log('✨ Git is installed.');
     } catch {
-      this.logger.error('Git is not installed. Please install Git.');
+      output.error('Git is not installed. Please install Git.');
     }
   }
 
@@ -45,26 +41,24 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('vercel -v', { stdio: 'ignore' });
 
-      this.logger.info('✨ Vercel is installed.');
+      output.log('✨ Vercel is installed.');
     } catch {
-      this.logger.error('Vercel is not installed. Please install Vercel.');
+      output.error('Vercel is not installed. Please install Vercel.');
     }
 
     try {
       execSync('vercel whoami', { stdio: 'pipe' });
 
-      this.logger.info('✨ Vercel is authenticated.');
+      output.log('✨ Vercel is authenticated.');
     } catch (error: unknown) {
       const noCredentials =
         error instanceof Error &&
         error.toString().includes('No existing credentials found.');
 
       if (noCredentials) {
-        this.logger.warn(
-          '🚧 Vercel is not authenticated. (type `vercel login`)',
-        );
+        output.warn('🚧 Vercel is not authenticated. (type `vercel login`)');
       } else {
-        this.logger.error('🚨 Something went wrong ...');
+        output.error('🚨 Something went wrong ...');
       }
     }
   }

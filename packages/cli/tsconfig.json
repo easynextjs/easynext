@@ -1,7 +1,9 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
+    "noEmit": false,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "resolveJsonModule": true,
@@ -24,5 +26,6 @@
   },
   "ts-node": {
     "require": ["tsconfig-paths/register"]
-  }
+  },
+  "exclude": ["node_modules", "dist"]
 }

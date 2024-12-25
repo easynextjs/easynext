@@ -11,6 +11,7 @@
   "license": "MIT",
   "description": "",
   "devDependencies": {
+    "@vercel/style-guide": "6.0.0",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",

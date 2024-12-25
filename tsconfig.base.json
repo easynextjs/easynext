@@ -1,5 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@vercel/style-guide/typescript",
   "compilerOptions": {
     "strict": true,
     "useUnknownInCatchVariables": true,
@@ -8,11 +9,20 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "incremental": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "lib": ["ES2021"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "sourceMap": false,
+    "target": "ES2021"
   },
   "exclude": ["**/node_modules", "**/.*/"]
 }

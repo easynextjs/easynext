@@ -1,7 +1,7 @@
 import { CommandRunner } from 'nest-commander';
-import { Logger } from './logger';
+import { Logger } from '../logger';
 
-export abstract class BasicCommand extends CommandRunner {
+export abstract class AbstractCommand extends CommandRunner {
   constructor(protected readonly logger: Logger) {
     super();
   }

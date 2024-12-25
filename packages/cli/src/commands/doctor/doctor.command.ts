@@ -1,12 +1,13 @@
-import { Command, CommandRunner } from 'nest-commander';
+import { Command } from 'nest-commander';
 import { lt } from 'semver';
 import { Logger } from '@/logger';
 import { execSync } from 'child_process';
+import { AbstractCommand } from '../abstract.command';
 
 @Command({ name: 'doctor', description: 'Check the health of the system' })
-export class DoctorCommand extends CommandRunner {
-  constructor(private readonly logger: Logger) {
-    super();
+export class DoctorCommand extends AbstractCommand {
+  constructor(protected readonly logger: Logger) {
+    super(logger);
   }
 
   async run() {

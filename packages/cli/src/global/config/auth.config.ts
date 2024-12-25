@@ -8,5 +8,3 @@ export class AuthConfig {
     Object.assign(this, parial);
   }
 }
-
-export const AUTH_CONFIG = 'AUTH_CONFIG';

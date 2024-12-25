@@ -13,18 +13,20 @@
 
 > Depends on Cursor, Vercel, next-ui, Supabase
 
-Easy-to-Use CLI for Next.js
+Easiest way to start Next.js project ⚡️ [한글](./README.ko.md)
 
-## Getting Started
+## Installiation
 
 ```bash
-# Install the CLI globally
+# (recommended) use npm
 $ npm install -g @easynext/cli
+
+# if you are using yarn, pnpm
 $ yarn global add @easynext/cli
 $ pnpm add -g @easynext/cli
 ```
 
-## Commands
+## Available commands
 
 ```bash
 # Check tools installation
@@ -34,7 +36,7 @@ $ easynext doctor
 $ easynext lang <'ko' | 'en'>
 ```
 
-## Coming Soon
+## Coming Soon Commands
 
 ```bash
 # Create a new project

@@ -45,14 +45,14 @@ $ easynext doctor
 
 # 언어 설정
 $ easynext lang <'ko' | 'en'>
+
+# 새 프로젝트 생성
+$ easynext create <project-name>
 ```
 
 ## 곧 추가될 명령어
 
 ```bash
-# 새 프로젝트 생성
-$ easynext create <project-name>
-
 # 로그인 기능 추가 (구글, 애플, 카카오, 네이버)
 $ easynext auth google|apple|kakao|naver
 

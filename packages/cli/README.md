@@ -49,13 +49,14 @@ $ easynext doctor
 
 # Set language
 $ easynext lang <'ko' | 'en'>
+
+# Create a new project
+$ easynext create <project-name>
 ```
 
 ## Coming Soon Commands
 
 ```bash
-# Create a new project
-$ easynext create <project-name>
 
 # Set google auth
 $ easynext auth google|apple|kakao|naver

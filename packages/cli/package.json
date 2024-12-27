@@ -20,6 +20,9 @@
   "bin": {
     "easynext": "dist/src/cli.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

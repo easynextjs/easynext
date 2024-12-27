@@ -6,7 +6,7 @@ import globals from 'globals';
 /** @type {import('typescript-eslint').Config} */
 const config = tseslint.config(
   {
-    ignores: ['eslint.config.mjs'],
+    ignores: ['eslint.config.mjs', 'src/commands/create/templates/default/'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,

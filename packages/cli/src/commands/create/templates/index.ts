@@ -144,20 +144,7 @@ export const installTemplate = async ({
     },
   };
 
-  // add tailwindcss dependencies
-  packageJson.dependencies = {
-    ...packageJson.dependencies,
-    autoprefixer: '10.4.20',
-    'class-variance-authority': '^0.7.0',
-    clsx: '^2.1.1',
-  };
-  packageJson.devDependencies = {
-    ...packageJson.devDependencies,
-    postcss: '^8',
-    'tailwind-merge': '^2.5.2',
-    tailwindcss: '^3.4.1',
-    'tailwindcss-animate': '^1.0.7',
-  };
+  addDependencies(packageJson);
 
   await fs.writeFile(
     path.join(root, 'package.json'),
@@ -180,3 +167,29 @@ export const installTemplate = async ({
 };
 
 export * from './types';
+
+function addDependencies(packageJson: any) {
+  // add tailwindcss dependencies
+  packageJson.devDependencies = {
+    ...packageJson.devDependencies,
+    postcss: '^8',
+    tailwindcss: '^3.4.1',
+  };
+
+  // add shadcn-ui dependencies
+  packageJson.dependencies = {
+    ...packageJson.dependencies,
+    '@radix-ui/react-checkbox': '^1.1.1',
+    '@radix-ui/react-dropdown-menu': '^2.1.1',
+    '@radix-ui/react-label': '^2.1.0',
+    '@radix-ui/react-slot': '^1.1.0',
+    autoprefixer: '10.4.20',
+    'class-variance-authority': '^0.7.0',
+    clsx: '^2.1.1',
+  };
+  packageJson.devDependencies = {
+    ...packageJson.devDependencies,
+    'tailwind-merge': '^2.5.2',
+    'tailwindcss-animate': '^1.0.7',
+  };
+}

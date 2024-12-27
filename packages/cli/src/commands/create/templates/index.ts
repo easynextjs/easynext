@@ -40,7 +40,7 @@ export const installTemplate = async ({
    * Copy the template files to the target directory.
    */
   console.log('\nInitializing project with template:', template, '\n');
-  const templatePath = path.join(__dirname, template, mode);
+  const templatePath = path.join(__dirname, template);
   const copySource = ['**'];
   if (!eslint) copySource.push('!eslint.config.mjs');
   if (!tailwind)
@@ -69,10 +69,7 @@ export const installTemplate = async ({
     },
   });
 
-  const tsconfigFile = path.join(
-    root,
-    mode === 'js' ? 'jsconfig.json' : 'tsconfig.json',
-  );
+  const tsconfigFile = path.join(root, 'tsconfig.json');
   await fs.writeFile(
     tsconfigFile,
     (await fs.readFile(tsconfigFile, 'utf8'))
@@ -135,7 +132,7 @@ export const installTemplate = async ({
       }),
     );
 
-    const isAppTemplate = template.startsWith('app');
+    const isAppTemplate = true;
 
     // Change the `Get started by editing pages/index` / `app/page` to include `src`
     const indexPageFile = path.join(

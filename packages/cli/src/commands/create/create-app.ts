@@ -7,7 +7,7 @@ import { isFolderEmpty } from './helpers/is-folder-empty';
 import { getOnline } from './helpers/is-online';
 import { isWriteable } from './helpers/is-writeable';
 
-import type { TemplateMode, TemplateType } from './templates';
+import type { TemplateType } from './templates';
 import { installTemplate } from './templates';
 
 export class DownloadError extends Error {}
@@ -15,32 +15,25 @@ export class DownloadError extends Error {}
 export async function createApp({
   appPath,
   packageManager,
-  typescript,
   tailwind,
   eslint,
-  app,
   srcDir,
   importAlias,
   skipInstall,
-  empty,
   turbopack,
   disableGit,
 }: {
   appPath: string;
   packageManager: PackageManager;
-  typescript: boolean;
   tailwind: boolean;
   eslint: boolean;
-  app: boolean;
   srcDir: boolean;
   importAlias: string;
   skipInstall: boolean;
-  empty: boolean;
   turbopack: boolean;
   disableGit?: boolean;
 }): Promise<void> {
-  const mode: TemplateMode = typescript ? 'ts' : 'js';
-  const template: TemplateType = `${app ? 'app' : 'default'}${tailwind ? '-tw' : ''}${empty ? '-empty' : ''}`;
+  const template: TemplateType = 'default';
 
   const root = resolve(appPath);
 
@@ -76,7 +69,7 @@ export async function createApp({
     appName,
     root,
     template,
-    mode,
+    mode: 'ts',
     packageManager,
     isOnline,
     tailwind,

@@ -41,14 +41,11 @@ export class CreateCommand extends AbstractCommand {
     await createApp({
       appPath,
       packageManager: 'npm',
-      typescript: true,
       tailwind: true,
       eslint: true,
-      app: true,
       srcDir: true,
       importAlias: '@/*',
       skipInstall: false,
-      empty: false,
       turbopack: true,
       disableGit: false,
     });

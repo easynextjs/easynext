@@ -11,7 +11,7 @@
 
 </div>
 
-> Depends on Cursor, Vercel, shadcn-ui, Supabase
+> Depends on Cursor, Vercel, shadcn-ui, tailwindcss, Supabase
 
 Easiest way to start Next.js project ⚡️ [한글](https://github.com/easynextjs/easynext/blob/main/packages/cli/README.ko.md)
 

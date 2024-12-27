@@ -127,6 +127,7 @@ export const installTemplate = async ({
       react: nextjsReactPeerVersion,
       'react-dom': nextjsReactPeerVersion,
       next: version,
+      'next-themes': '^0.4.3',
     },
     devDependencies: {
       /* TypeScript dependencies */
@@ -135,16 +136,27 @@ export const installTemplate = async ({
       '@types/react': '^19',
       '@types/react-dom': '^19',
 
-      /* Tailwind CSS dependencies. */
-      postcss: '^8',
-      tailwindcss: '^3.4.1',
-
       /* Default ESLint dependencies. */
       eslint: '^9',
       'eslint-config-next': version,
       // TODO: Remove @eslint/eslintrc once eslint-config-next is pure Flat config
       '@eslint/eslintrc': '^3',
     },
+  };
+
+  // add tailwindcss dependencies
+  packageJson.dependencies = {
+    ...packageJson.dependencies,
+    autoprefixer: '10.4.20',
+    'class-variance-authority': '^0.7.0',
+    clsx: '^2.1.1',
+  };
+  packageJson.devDependencies = {
+    ...packageJson.devDependencies,
+    postcss: '^8',
+    'tailwind-merge': '^2.5.2',
+    tailwindcss: '^3.4.1',
+    'tailwindcss-animate': '^1.0.7',
   };
 
   await fs.writeFile(

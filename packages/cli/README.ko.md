@@ -11,7 +11,7 @@
 
 </div>
 
-> Cursor, Vercel, next-ui, Supabase 사용을 가정합니다.
+> Cursor, Vercel, shadcn-ui, tailwindcss, Supabase 사용을 가정합니다.
 
 가장 쉽게 시작할 수 있는 Next.js ⚡️
 

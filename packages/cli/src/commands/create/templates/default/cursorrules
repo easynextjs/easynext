@@ -133,6 +133,11 @@ use following libraries for specific functionalities:
 - Unit tests for core functionality
 - Consider integration and end-to-end tests
 
+## Shadcn-ui
+
+- if you need to add new component, please show me the installation instructions. I'll paste it into terminal.
+- example: npx shadcn@latest add card
+
 ## Supabase
 
 - if you need to add new table, please show me the create query sql. I'll paste it into supabase.

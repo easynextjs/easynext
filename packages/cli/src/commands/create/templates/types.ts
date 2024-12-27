@@ -14,9 +14,6 @@ export interface InstallTemplateArgs {
   packageManager: PackageManager;
   isOnline: boolean;
   template: TemplateType;
-  mode: 'ts';
-  eslint: boolean;
-  tailwind: boolean;
   skipInstall: boolean;
   turbopack: boolean;
 }

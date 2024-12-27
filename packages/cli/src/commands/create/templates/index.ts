@@ -24,9 +24,6 @@ export const installTemplate = async ({
   packageManager,
   isOnline,
   template,
-  mode,
-  tailwind,
-  eslint,
   skipInstall,
   turbopack,
 }: InstallTemplateArgs) => {
@@ -37,15 +34,8 @@ export const installTemplate = async ({
    */
   console.log('\nInitializing project with template:', template, '\n');
   const templatePath = path.join(__dirname, template);
-  const copySource = ['**'];
-  if (!eslint) copySource.push('!eslint.config.mjs');
-  if (!tailwind)
-    copySource.push(
-      mode == 'ts' ? 'tailwind.config.ts' : '!tailwind.config.mjs',
-      '!postcss.config.mjs',
-    );
 
-  await copy(copySource, root, {
+  await copy(['**'], root, {
     parents: true,
     cwd: templatePath,
     rename(name) {
@@ -138,44 +128,24 @@ export const installTemplate = async ({
       'react-dom': nextjsReactPeerVersion,
       next: version,
     },
-    devDependencies: {},
-  };
-
-  /**
-   * TypeScript projects will have type definitions and other devDependencies.
-   */
-  if (mode === 'ts') {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
+    devDependencies: {
+      /* TypeScript dependencies */
       typescript: '^5',
       '@types/node': '^20',
       '@types/react': '^19',
       '@types/react-dom': '^19',
-    };
-  }
 
-  /* Add Tailwind CSS dependencies. */
-  if (tailwind) {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
+      /* Tailwind CSS dependencies. */
       postcss: '^8',
       tailwindcss: '^3.4.1',
-    };
-  }
 
-  /* Default ESLint dependencies. */
-  if (eslint) {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
+      /* Default ESLint dependencies. */
       eslint: '^9',
       'eslint-config-next': version,
       // TODO: Remove @eslint/eslintrc once eslint-config-next is pure Flat config
       '@eslint/eslintrc': '^3',
-    };
-  }
-
-  const devDeps = Object.keys(packageJson.devDependencies).length;
-  if (!devDeps) delete packageJson.devDependencies;
+    },
+  };
 
   await fs.writeFile(
     path.join(root, 'package.json'),
@@ -188,11 +158,9 @@ export const installTemplate = async ({
   for (const dependency in packageJson.dependencies)
     console.log(`- ${cyan(dependency)}`);
 
-  if (devDeps) {
-    console.log('\nInstalling devDependencies:');
-    for (const dependency in packageJson.devDependencies)
-      console.log(`- ${cyan(dependency)}`);
-  }
+  console.log('\nInstalling devDependencies:');
+  for (const dependency in packageJson.devDependencies)
+    console.log(`- ${cyan(dependency)}`);
 
   console.log();
 

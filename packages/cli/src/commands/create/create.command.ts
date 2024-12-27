@@ -41,8 +41,6 @@ export class CreateCommand extends AbstractCommand {
     await createApp({
       appPath,
       packageManager: 'npm',
-      tailwind: true,
-      eslint: true,
       skipInstall: false,
       turbopack: true,
       disableGit: false,

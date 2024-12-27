@@ -15,16 +15,12 @@ export class DownloadError extends Error {}
 export async function createApp({
   appPath,
   packageManager,
-  tailwind,
-  eslint,
   skipInstall,
   turbopack,
   disableGit,
 }: {
   appPath: string;
   packageManager: PackageManager;
-  tailwind: boolean;
-  eslint: boolean;
   skipInstall: boolean;
   turbopack: boolean;
   disableGit?: boolean;
@@ -65,11 +61,8 @@ export async function createApp({
     appName,
     root,
     template,
-    mode: 'ts',
     packageManager,
     isOnline,
-    tailwind,
-    eslint,
     skipInstall,
     turbopack,
   });

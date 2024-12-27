@@ -54,7 +54,9 @@ export const installTemplate = async ({
     cwd: templatePath,
     rename(name) {
       switch (name) {
-        case 'gitignore': {
+        case 'gitignore':
+        case 'cursorrules':
+        case 'cursorignore': {
           return `.${name}`;
         }
         // README.md is ignored by webpack-asset-relocator-loader used by ncc:

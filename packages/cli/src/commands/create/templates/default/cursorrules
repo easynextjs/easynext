@@ -13,8 +13,9 @@ use following libraries for specific functionalities:
 7. `lucide-react`: For customizable icons.
 8. `zod`: For schema validation and data integrity.
 9. `shadcn-ui`: For pre-built accessible UI components.
-10. `tailwindcss`: For CSS styling.
-11. `supabase`: For a backend-as-a-service with database, authentication, and APIs.
+10. `tailwindcss`: For utility-first CSS styling.
+11. `supabase`: For a backend-as-a-service solution.
+12. `react-hook-form`: For form validation and state management.
 
 ## Directory Structure
 

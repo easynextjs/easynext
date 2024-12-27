@@ -202,5 +202,7 @@ function addDependencies(packageJson: any) {
     'lucide-react': '^0.469.0',
     zod: '^3',
     zustand: '^4',
+    'date-fns': '^4',
+    'react-hook-form': '^7',
   };
 }

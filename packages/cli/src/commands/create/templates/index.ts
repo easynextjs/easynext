@@ -204,5 +204,6 @@ function addDependencies(packageJson: any) {
     zustand: '^4',
     'date-fns': '^4',
     'react-hook-form': '^7',
+    '@tanstack/react-query': '^5',
   };
 }

@@ -20,3 +20,5 @@ node_modules/
 src/
 tests/
 storybook-static/
+
+!dist/

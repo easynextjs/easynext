@@ -11,9 +11,24 @@
 
 </div>
 
-> Depends on Cursor, Vercel, next-ui, Supabase
+> Depends on Cursor, Vercel, shadcn-ui, Supabase
 
 Easiest way to start Next.js project ⚡️ [한글](https://github.com/easynextjs/easynext/blob/main/packages/cli/README.ko.md)
+
+### With EasyNext, You can ...
+
+Do all the things you need to do to start a Next.js project,<br/>
+in your own language! (English, Korean)
+
+- Create a Ready-to-use project
+- Set up Google/Apple/Kakao/Naver Auth
+- Set up and link Supabase
+- Set up Google Sheet modules
+- More to come... 👀
+
+## Prerequisites
+
+- Node.js 20+
 
 ## Installiation
 

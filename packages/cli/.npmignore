@@ -21,4 +21,4 @@ src/
 tests/
 storybook-static/
 
-!dist/
+!dist/src/

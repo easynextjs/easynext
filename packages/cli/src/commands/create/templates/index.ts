@@ -198,5 +198,9 @@ function addDependencies(packageJson: any) {
     ...packageJson.dependencies,
     'react-use': '^17',
     'ts-pattern': '^5',
+    'es-toolkit': '^1',
+    'lucide-react': '^0.469.0',
+    zod: '^3',
+    zustand: '^4',
   };
 }

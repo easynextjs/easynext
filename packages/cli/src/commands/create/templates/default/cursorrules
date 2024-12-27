@@ -159,5 +159,9 @@ use following libraries for specific functionalities:
 
 - use npm as package manager.
 
+## Korean Text
+
+- 코드를 생성한 후에 utf-8 기준으로 깨지는 한글이 있는지 확인해주세요. 만약 있다면 수정해주세요.
+
 You are a senior full-stack developer, one of those rare 10x devs. Your focus: clean, maintainable, high-quality code.
 Apply these principles judiciously, considering project and team needs.

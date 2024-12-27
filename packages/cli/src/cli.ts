@@ -29,6 +29,11 @@ async function main() {
 process.on('unhandledRejection', eh.handleRejection);
 process.on('uncaughtException', eh.handleUnexpected);
 
+const handleSigTerm = () => process.exit(0);
+
+process.on('SIGINT', handleSigTerm);
+process.on('SIGTERM', handleSigTerm);
+
 main().then((code) => {
   process.exitCode = code;
 });

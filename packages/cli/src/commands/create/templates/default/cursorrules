@@ -134,6 +134,10 @@ use following libraries for specific functionalities:
 - Unit tests for core functionality
 - Consider integration and end-to-end tests
 
+## Next.js
+
+- you must use promise for page.tsx params props.
+
 ## Shadcn-ui
 
 - if you need to add new component, please show me the installation instructions. I'll paste it into terminal.

@@ -20,11 +20,3 @@ node_modules/
 src/
 tests/
 storybook-static/
-
-.eslint*
-.prettier*
-.gitignore
-jest*
-CHANGELOG.md
-tsconfig.json
-renovate.json

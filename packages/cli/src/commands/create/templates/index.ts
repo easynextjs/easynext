@@ -169,14 +169,14 @@ export const installTemplate = async ({
 export * from './types';
 
 function addDependencies(packageJson: any) {
-  // add tailwindcss dependencies
+  // tailwindcss
   packageJson.devDependencies = {
     ...packageJson.devDependencies,
     postcss: '^8',
     tailwindcss: '^3.4.1',
   };
 
-  // add shadcn-ui dependencies
+  // shadcn-ui
   packageJson.dependencies = {
     ...packageJson.dependencies,
     '@radix-ui/react-checkbox': '^1.1.1',
@@ -191,5 +191,12 @@ function addDependencies(packageJson: any) {
     ...packageJson.devDependencies,
     'tailwind-merge': '^2.5.2',
     'tailwindcss-animate': '^1.0.7',
+  };
+
+  // useful dependencies
+  packageJson.dependencies = {
+    ...packageJson.dependencies,
+    'react-use': '^17',
+    'ts-pattern': '^5',
   };
 }

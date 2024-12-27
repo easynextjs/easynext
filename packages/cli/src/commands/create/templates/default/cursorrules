@@ -2,16 +2,18 @@
 
 ## Library
 
-- shadcn/ui
+- shadcn-ui
 - tailwindcss
 - zustand
 - supabase
+- react-use
+- ts-pattern
 
 ## Directory Structure
 
 - src
 - src/app: Next.js App Routers
-- src/components/ui: shadcn/ui components
+- src/components/ui: shadcn-ui components
 - src/constants: Common constants
 - src/hooks: Common hooks
 - src/lib: utility functions

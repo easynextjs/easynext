@@ -17,8 +17,6 @@ export interface InstallTemplateArgs {
   mode: 'ts';
   eslint: boolean;
   tailwind: boolean;
-  srcDir: boolean;
-  importAlias: string;
   skipInstall: boolean;
   turbopack: boolean;
 }

@@ -1,12 +1,10 @@
 import { install } from '../helpers/install';
 import { copy } from '../helpers/copy';
 
-import { async as glob } from 'fast-glob';
 import os from 'os';
 import fs from 'fs/promises';
 import path from 'path';
 import { cyan, bold } from 'chalk';
-import { Sema } from 'async-sema';
 
 import { InstallTemplateArgs } from './types';
 
@@ -29,8 +27,6 @@ export const installTemplate = async ({
   mode,
   tailwind,
   eslint,
-  srcDir,
-  importAlias,
   skipInstall,
   turbopack,
 }: InstallTemplateArgs) => {
@@ -71,100 +67,54 @@ export const installTemplate = async ({
     },
   });
 
-  const tsconfigFile = path.join(root, 'tsconfig.json');
-  await fs.writeFile(
-    tsconfigFile,
-    (await fs.readFile(tsconfigFile, 'utf8'))
-      .replace(
-        `"@/*": ["./*"]`,
-        srcDir ? `"@/*": ["./src/*"]` : `"@/*": ["./*"]`,
-      )
-      .replace(`"@/*":`, `"${importAlias}":`),
-  );
+  // const tsconfigFile = path.join(root, 'tsconfig.json');
+  // await fs.writeFile(
+  //   tsconfigFile,
+  //   (await fs.readFile(tsconfigFile, 'utf8'))
+  //     .replace(
+  //       `"@/*": ["./*"]`,
+  //       srcDir ? `"@/*": ["./src/*"]` : `"@/*": ["./*"]`,
+  //     )
+  //     .replace(`"@/*":`, `"${importAlias}":`),
+  // );
 
   // update import alias in any files if not using the default
-  if (importAlias !== '@/*') {
-    const files = await glob('**/*', {
-      cwd: root,
-      dot: true,
-      stats: false,
-      // We don't want to modify compiler options in [ts/js]config.json
-      // and none of the files in the .git folder
-      // TODO: Refactor this to be an allowlist, rather than a denylist,
-      // to avoid corrupting files that weren't intended to be replaced
+  // if (importAlias !== '@/*') {
+  //   const files = await glob('**/*', {
+  //     cwd: root,
+  //     dot: true,
+  //     stats: false,
+  //     // We don't want to modify compiler options in [ts/js]config.json
+  //     // and none of the files in the .git folder
+  //     // TODO: Refactor this to be an allowlist, rather than a denylist,
+  //     // to avoid corrupting files that weren't intended to be replaced
 
-      ignore: [
-        'tsconfig.json',
-        'jsconfig.json',
-        '.git/**/*',
-        '**/fonts/**',
-        '**/favicon.ico',
-      ],
-    });
-    const writeSema = new Sema(8, { capacity: files.length });
-    await Promise.all(
-      files.map(async (file) => {
-        await writeSema.acquire();
-        const filePath = path.join(root, file);
-        if ((await fs.stat(filePath)).isFile()) {
-          await fs.writeFile(
-            filePath,
-            (await fs.readFile(filePath, 'utf8')).replace(
-              `@/`,
-              `${importAlias.replace(/\*/g, '')}`,
-            ),
-          );
-        }
-        writeSema.release();
-      }),
-    );
-  }
-
-  if (srcDir) {
-    await fs.mkdir(path.join(root, 'src'), { recursive: true });
-    await Promise.all(
-      SRC_DIR_NAMES.map(async (file) => {
-        await fs
-          .rename(path.join(root, file), path.join(root, 'src', file))
-          .catch((err) => {
-            if (err.code !== 'ENOENT') {
-              throw err;
-            }
-          });
-      }),
-    );
-
-    const isAppTemplate = true;
-
-    // Change the `Get started by editing pages/index` / `app/page` to include `src`
-    const indexPageFile = path.join(
-      'src',
-      isAppTemplate ? 'app' : 'pages',
-      `${isAppTemplate ? 'page' : 'index'}.${mode === 'ts' ? 'tsx' : 'js'}`,
-    );
-
-    await fs.writeFile(
-      indexPageFile,
-      (await fs.readFile(indexPageFile, 'utf8')).replace(
-        isAppTemplate ? 'app/page' : 'pages/index',
-        isAppTemplate ? 'src/app/page' : 'src/pages/index',
-      ),
-    );
-
-    if (tailwind) {
-      const tailwindConfigFile = path.join(
-        root,
-        mode === 'ts' ? 'tailwind.config.ts' : 'tailwind.config.mjs',
-      );
-      await fs.writeFile(
-        tailwindConfigFile,
-        (await fs.readFile(tailwindConfigFile, 'utf8')).replace(
-          /\.\/(\w+)\/\*\*\/\*\.\{js,ts,jsx,tsx,mdx\}/g,
-          './src/$1/**/*.{js,ts,jsx,tsx,mdx}',
-        ),
-      );
-    }
-  }
+  //     ignore: [
+  //       'tsconfig.json',
+  //       'jsconfig.json',
+  //       '.git/**/*',
+  //       '**/fonts/**',
+  //       '**/favicon.ico',
+  //     ],
+  //   });
+  //   const writeSema = new Sema(8, { capacity: files.length });
+  //   await Promise.all(
+  //     files.map(async (file) => {
+  //       await writeSema.acquire();
+  //       const filePath = path.join(root, file);
+  //       if ((await fs.stat(filePath)).isFile()) {
+  //         await fs.writeFile(
+  //           filePath,
+  //           (await fs.readFile(filePath, 'utf8')).replace(
+  //             `@/`,
+  //             `${importAlias.replace(/\*/g, '')}`,
+  //           ),
+  //         );
+  //       }
+  //       writeSema.release();
+  //     }),
+  //   );
+  // }
 
   /** Copy the version from package.json or override for tests. */
   const version = process.env.NEXT_PRIVATE_TEST_VERSION ?? nextVersion;

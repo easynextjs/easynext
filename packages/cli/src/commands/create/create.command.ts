@@ -43,8 +43,6 @@ export class CreateCommand extends AbstractCommand {
       packageManager: 'npm',
       tailwind: true,
       eslint: true,
-      srcDir: true,
-      importAlias: '@/*',
       skipInstall: false,
       turbopack: true,
       disableGit: false,

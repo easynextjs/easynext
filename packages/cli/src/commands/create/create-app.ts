@@ -17,8 +17,6 @@ export async function createApp({
   packageManager,
   tailwind,
   eslint,
-  srcDir,
-  importAlias,
   skipInstall,
   turbopack,
   disableGit,
@@ -27,8 +25,6 @@ export async function createApp({
   packageManager: PackageManager;
   tailwind: boolean;
   eslint: boolean;
-  srcDir: boolean;
-  importAlias: string;
   skipInstall: boolean;
   turbopack: boolean;
   disableGit?: boolean;
@@ -74,8 +70,6 @@ export async function createApp({
     isOnline,
     tailwind,
     eslint,
-    srcDir,
-    importAlias,
     skipInstall,
     turbopack,
   });

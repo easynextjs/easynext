@@ -1,5 +1,9 @@
 # Senior Next.js Developer Guidelines
 
+## Must
+
+- always use client component for all components. (use `use client` directive)
+
 ## Library
 
 use following libraries for specific functionalities:

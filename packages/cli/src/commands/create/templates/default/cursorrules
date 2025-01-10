@@ -3,6 +3,7 @@
 ## Must
 
 - always use client component for all components. (use `use client` directive)
+- always use promise for page.tsx params props.
 
 ## Library
 

@@ -18,7 +18,7 @@
   "main": "dist/src/cli.js",
   "types": "dist/src/cli.d.ts",
   "bin": {
-    "easynext": "dist/src/cli.js"
+    "easynext": "./bin/cli"
   },
   "files": [
     "dist"

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { isError } from '@vercel/error-utils';
 
 try {

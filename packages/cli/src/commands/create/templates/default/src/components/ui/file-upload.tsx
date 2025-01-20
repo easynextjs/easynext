@@ -4,13 +4,13 @@ import { cn } from "@/lib/utils";
 import { ChangeEvent, useRef } from "react";
 
 interface FileUploadProps extends React.HTMLAttributes<HTMLDivElement> {
-  onChange: (file: File) => void;
+  onFileChange: (file: File) => void;
   accept?: string;
 }
 
 export function FileUpload({
   className,
-  onChange,
+  onFileChange,
   accept = "image/*",
   children,
   ...props
@@ -24,7 +24,7 @@ export function FileUpload({
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      onChange(file);
+      onFileChange(file);
     }
   };
 

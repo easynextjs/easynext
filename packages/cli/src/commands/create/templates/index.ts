@@ -179,9 +179,11 @@ function addDependencies(packageJson: any) {
   // shadcn-ui
   packageJson.dependencies = {
     ...packageJson.dependencies,
+    '@radix-ui/react-avatar': '^1.1.2',
     '@radix-ui/react-checkbox': '^1.1.1',
     '@radix-ui/react-dropdown-menu': '^2.1.1',
     '@radix-ui/react-label': '^2.1.0',
+    '@radix-ui/react-select': '^2.1.4',
     '@radix-ui/react-slot': '^1.1.0',
     autoprefixer: '10.4.20',
     'class-variance-authority': '^0.7.0',
@@ -205,5 +207,6 @@ function addDependencies(packageJson: any) {
     'date-fns': '^4',
     'react-hook-form': '^7',
     '@tanstack/react-query': '^5',
+    'framer-motion': '^11',
   };
 }

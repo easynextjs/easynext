@@ -26,7 +26,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
-    "postbuild": "copyfiles -u 4 \"./src/commands/create/templates/**/*\" dist/src/commands/create/templates",
+    "postbuild": "copyfiles -u 4 -a \"./src/commands/create/templates/**/*\" dist/src/commands/create/templates",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "cli": "ts-node src/cli.ts",
     "start": "nest start",

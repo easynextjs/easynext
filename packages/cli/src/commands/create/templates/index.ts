@@ -200,6 +200,7 @@ function addDependencies(packageJson: any) {
   // useful dependencies
   packageJson.dependencies = {
     ...packageJson.dependencies,
+    '@hookform/resolvers': '^4',
     'react-use': '^17',
     'ts-pattern': '^5',
     'es-toolkit': '^1',

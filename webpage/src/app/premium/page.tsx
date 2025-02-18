@@ -16,14 +16,8 @@ const premiumTemplates = [
     isLocked: false,
   },
   {
-    name: "대시보드",
-    description: "관리자 대시보드 템플릿",
-    isLocked: true,
-    comingSoon: "02.24 공개 예정",
-  },
-  {
-    name: "커머스",
-    description: "전자상거래 템플릿",
+    name: "커뮤니티",
+    description: "커뮤니티 템플릿",
     isLocked: true,
     comingSoon: "03.03 공개 예정",
   },
@@ -31,7 +25,13 @@ const premiumTemplates = [
     name: "SaaS",
     description: "SaaS 템플릿",
     isLocked: true,
-    comingSoon: "03.10 공개 예정",
+    comingSoon: "03.17 공개 예정",
+  },
+  {
+    name: "AI 서비스",
+    description: "전자상거래 템플릿",
+    isLocked: true,
+    comingSoon: "03.31 공개 예정",
   },
 ];
 
@@ -155,17 +155,20 @@ export default function PremiumPage() {
             <Sparkles className="w-4 h-4" />
             <span className="text-sm font-medium">얼리버드 할인 진행 중</span>
           </div>
-          <h1 className="text-5xl font-bold tracking-tight text-gray-900">
-            더 다양한 템플릿으로
+          <h1 className="text-4xl md:text-5xl font-bold leading-[1.3] text-gray-900">
+            출시까지 걸리는 시간을
             <br />
-            프로젝트를 시작하세요
+            80% 단축하세요
           </h1>
-          <p className="text-xl text-muted-foreground">
-            프리미엄 템플릿으로 생산성을 높이세요
+          <p className="text-xl text-black/80 break-keep">
+            모든 기능이 준비된 Next.js 템플릿으로 나만의 커뮤니티, SaaS, AI
+            서비스를 순식간에 완성해보세요
           </p>
 
           <div className="flex flex-col items-center gap-2">
             <p className="text-muted-foreground/80">
+              지금이 가장 저렴합니다!
+              <br />
               강의 구매 시 평생 무료 이용
             </p>
             <PremiumStartButton />
@@ -305,16 +308,16 @@ export default function PremiumPage() {
 
         {/* CTA 섹션 */}
         <motion.div
-          className="text-center space-y-8 bg-gradient-to-r from-amber-500/10 to-yellow-500/10 rounded-3xl p-12 border-2 border-gray-700"
+          className="text-center bg-gradient-to-r from-amber-500/10 to-yellow-500/10 rounded-3xl p-12 border-2 border-gray-700"
           variants={itemVariants}
         >
-          <div className="space-y-4">
+          <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 rounded-full text-amber-600 mb-4">
               <Sparkles className="w-4 h-4" />
               <span className="text-sm font-medium">출시 기념 혜택!</span>
             </div>
-            <h2 className="text-4xl font-bold text-gray-900">
-              지금 바로 시작하세요
+            <h2 className="text-4xl font-bold text-gray-900 break-keep">
+              지금이 가장 저렴합니다!
             </h2>
             <p className="text-2xl font-medium">
               <span className="text-gray-700 line-through">299,900</span>{" "}
@@ -323,7 +326,7 @@ export default function PremiumPage() {
                 강의 구매 시 평생 무료 이용
               </span>
             </p>
-            <div className="text-muted-foreground space-y-1">
+            <div className="text-muted-foreground mb-4">
               <p className="text-sm">* 얼리버드 기간 한정 특가</p>
             </div>
           </div>

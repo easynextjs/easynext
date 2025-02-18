@@ -16,6 +16,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const premiumTemplates = [
   {
@@ -96,6 +102,16 @@ const faqs = [
     answer: "네, 프리미엄 사용자를 위한 전용 기술 지원이 제공됩니다.",
   },
 ];
+
+const couponFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, "이메일을 입력해주세요")
+    .email("올바른 이메일 형식이 아닙니다"),
+  coupon: z.string().min(1, "이용권 코드를 입력해주세요"),
+});
+
+type CouponFormValues = z.infer<typeof couponFormSchema>;
 
 function Separator() {
   return <div className="h-8 bg-gray-100 mt-16 mb-24 -mx-4" />;
@@ -370,8 +386,57 @@ function PremiumStartButton() {
 }
 
 function CouponDialog() {
+  const { toast } = useToast();
+  const [open, setOpen] = useState(false);
+
+  const form = useForm<CouponFormValues>({
+    resolver: zodResolver(couponFormSchema),
+    defaultValues: {
+      email: "",
+      coupon: "",
+    },
+  });
+
+  const onSubmit = async (data: CouponFormValues) => {
+    try {
+      const response = await fetch("/api/premium/coupon", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "이용권 등록에 실패했습니다.");
+      }
+
+      // 성공 시 처리
+      toast({
+        title: "이용권 등록 완료",
+        description: "프리미엄 기능을 이용하실 수 있습니다.",
+        variant: "default",
+      });
+
+      form.reset();
+      setOpen(false);
+    } catch (error) {
+      // 에러 처리
+      toast({
+        title: "이용권 등록 실패",
+        description:
+          error instanceof Error
+            ? error.message
+            : "알 수 없는 오류가 발생했습니다.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant="link"
@@ -384,10 +449,59 @@ function CouponDialog() {
         <DialogHeader>
           <DialogTitle>이용권 등록</DialogTitle>
         </DialogHeader>
-        <div className="flex items-center space-x-2">
-          <Input placeholder="이용권 코드를 입력해주세요" className="flex-1" />
-          <Button type="submit">등록</Button>
-        </div>
+        <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="space-y-2">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-700"
+            >
+              이메일
+            </label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="이메일을 입력해주세요"
+              className={cn(
+                "w-full",
+                form.formState.errors.email && "border-red-500"
+              )}
+              {...form.register("email")}
+            />
+            {form.formState.errors.email && (
+              <p className="text-sm text-red-500">
+                {form.formState.errors.email.message}
+              </p>
+            )}
+          </div>
+          <div className="space-y-2">
+            <label
+              htmlFor="coupon"
+              className="text-sm font-medium text-gray-700"
+            >
+              이용권 코드
+            </label>
+            <div className="space-y-2">
+              <Input
+                id="coupon"
+                placeholder="이용권 코드를 입력해주세요"
+                className={cn(form.formState.errors.coupon && "border-red-500")}
+                {...form.register("coupon")}
+              />
+              {form.formState.errors.coupon && (
+                <p className="text-sm text-red-500">
+                  {form.formState.errors.coupon.message}
+                </p>
+              )}
+            </div>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={form.formState.isSubmitting}
+            >
+              {form.formState.isSubmitting ? "처리 중..." : "등록"}
+            </Button>
+          </div>
+        </form>
       </DialogContent>
     </Dialog>
   );

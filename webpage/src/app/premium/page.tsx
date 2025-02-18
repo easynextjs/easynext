@@ -7,6 +7,15 @@ import Image from "next/image";
 import { CheckCircle, Lock, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 const premiumTemplates = [
   {
@@ -141,11 +150,13 @@ export default function PremiumPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-gray-50">
       <motion.div
-        className="container mx-auto px-4 py-16 space-y-20 border-x border-gray-700"
+        className="container mx-auto px-4 pb-16 space-y-20 border-x border-gray-700"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
+        <Header />
+
         {/* Hero 섹션 */}
         <motion.div
           className="text-center space-y-6 max-w-3xl mx-auto"
@@ -165,13 +176,18 @@ export default function PremiumPage() {
             서비스를 순식간에 완성해보세요
           </p>
 
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-4">
             <p className="text-muted-foreground/80">
               지금이 가장 저렴합니다!
               <br />
               강의 구매 시 평생 무료 이용
             </p>
-            <PremiumStartButton />
+            <div className="space-y-2">
+              <PremiumStartButton />
+              <div className="text-center">
+                <CouponDialog />
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -350,5 +366,29 @@ function PremiumStartButton() {
         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
       </Link>
     </Button>
+  );
+}
+
+function CouponDialog() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button
+          variant="link"
+          className="text-muted-foreground hover:text-primary"
+        >
+          이미 이용권을 갖고 계신가요?
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader>
+          <DialogTitle>이용권 등록</DialogTitle>
+        </DialogHeader>
+        <div className="flex items-center space-x-2">
+          <Input placeholder="이용권 코드를 입력해주세요" className="flex-1" />
+          <Button type="submit">등록</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

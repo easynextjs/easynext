@@ -4,9 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CheckCircle, Lock, Sparkles, Star, ArrowRight } from "lucide-react";
+import { CheckCircle, Lock, Sparkles, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Footer } from "@/components/Footer";
 
 const premiumTemplates = [
@@ -43,29 +42,29 @@ const features = [
   "지속적인 업데이트",
 ];
 
-const testimonials = [
-  {
-    name: "김서연",
-    role: "프리랜서 개발자",
-    comment: "템플릿 덕분에 개발 시간을 50% 이상 단축할 수 있었어요.",
-    rating: 5,
-    avatar: "/images/avatars/1.png",
-  },
-  {
-    name: "이준호",
-    role: "스타트업 CEO",
-    comment: "퀄리티 높은 템플릿으로 초기 비용을 크게 절감했습니다.",
-    rating: 5,
-    avatar: "/images/avatars/2.png",
-  },
-  {
-    name: "박지민",
-    role: "프로덕트 매니저",
-    comment: "디자인부터 개발까지 완벽한 솔루션입니다.",
-    rating: 5,
-    avatar: "/images/avatars/3.png",
-  },
-];
+// const testimonials = [
+//   {
+//     name: "김서연",
+//     role: "프리랜서 개발자",
+//     comment: "템플릿 덕분에 개발 시간을 50% 이상 단축할 수 있었어요.",
+//     rating: 5,
+//     avatar: "/images/avatars/1.png",
+//   },
+//   {
+//     name: "이준호",
+//     role: "스타트업 CEO",
+//     comment: "퀄리티 높은 템플릿으로 초기 비용을 크게 절감했습니다.",
+//     rating: 5,
+//     avatar: "/images/avatars/2.png",
+//   },
+//   {
+//     name: "박지민",
+//     role: "프로덕트 매니저",
+//     comment: "디자인부터 개발까지 완벽한 솔루션입니다.",
+//     rating: 5,
+//     avatar: "/images/avatars/3.png",
+//   },
+// ];
 
 // const stats = [
 //   { label: "활성 사용자", value: "1,000+", icon: Users },
@@ -227,7 +226,7 @@ export default function PremiumPage() {
         <Separator />
 
         {/* 테스티모니얼 섹션 */}
-        <motion.div variants={itemVariants} className="space-y-8">
+        {/* <motion.div variants={itemVariants} className="space-y-8">
           <h2 className="text-3xl font-semibold text-center">사용자 후기</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((testimonial) => (
@@ -263,11 +262,11 @@ export default function PremiumPage() {
           </div>
         </motion.div>
 
-        <Separator />
+        <Separator /> */}
 
         {/* 특징 섹션 */}
         <motion.div
-          className="space-y-8 bg-white rounded-2xl p-10 shadow-sm border-2 border-gray-700"
+          className="space-y-8 bg-white rounded-2xl p-10 shadow-sm"
           variants={itemVariants}
         >
           <h2 className="text-3xl font-semibold text-center">프리미엄 혜택</h2>

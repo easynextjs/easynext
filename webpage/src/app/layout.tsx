@@ -10,7 +10,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Easiest Next.js with Cursor",
+  title: {
+    default: "Easiest Next.js with Cursor",
+    template: "%s | EasyNext",
+  },
   description: "EasyNext | Get Pro-created Next.js bootstrap just in seconds",
 };
 

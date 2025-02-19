@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     // 이용권 코드 유효성 검증
     const { data: accountData, error: accountError } = await supabase
       .from("accounts")
-      .select("*")
+      .select("is_active, access_token")
       .eq("email", email)
       .maybeSingle();
 
@@ -31,12 +31,17 @@ export async function POST(request: Request) {
     }
 
     if (accountData.is_active) {
-      return NextResponse.json({ success: true });
+      return NextResponse.json({
+        success: true,
+        access_token: accountData.access_token,
+      });
     }
+
+    const accessToken = crypto.randomUUID();
 
     const { error: updateError } = await supabase
       .from("accounts")
-      .update({ is_active: true })
+      .update({ is_active: true, access_token: accessToken })
       .eq("email", email);
 
     if (updateError) {
@@ -48,7 +53,10 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      access_token: accessToken,
+    });
   } catch (err) {
     console.log(err);
 

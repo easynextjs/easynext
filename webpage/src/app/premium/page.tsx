@@ -27,8 +27,8 @@ const premiumTemplates = [
   {
     name: "랜딩페이지",
     description: "제품/서비스 소개 템플릿",
-    image: "/images/home/background/17.webp",
-    isLocked: false,
+    isLocked: true,
+    comingSoon: "02.24 공개 예정",
   },
   {
     name: "커뮤니티",

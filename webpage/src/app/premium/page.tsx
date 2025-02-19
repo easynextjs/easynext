@@ -108,7 +108,6 @@ const couponFormSchema = z.object({
     .string()
     .min(1, "이메일을 입력해주세요")
     .email("올바른 이메일 형식이 아닙니다"),
-  coupon: z.string().min(1, "이용권 코드를 입력해주세요"),
 });
 
 type CouponFormValues = z.infer<typeof couponFormSchema>;
@@ -201,7 +200,14 @@ export default function PremiumPage() {
             <div className="space-y-2">
               <PremiumStartButton />
               <div className="text-center">
-                <CouponDialog />
+                <CouponDialog>
+                  <Button
+                    variant="link"
+                    className="text-muted-foreground hover:text-primary"
+                  >
+                    이미 이용권을 갖고 계신가요?
+                  </Button>
+                </CouponDialog>
               </div>
             </div>
           </div>
@@ -385,7 +391,7 @@ function PremiumStartButton() {
   );
 }
 
-function CouponDialog() {
+export function CouponDialog({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
   const [open, setOpen] = useState(false);
 
@@ -393,7 +399,6 @@ function CouponDialog() {
     resolver: zodResolver(couponFormSchema),
     defaultValues: {
       email: "",
-      coupon: "",
     },
   });
 
@@ -409,19 +414,45 @@ function CouponDialog() {
 
       const result = await response.json();
 
-      if (!response.ok) {
-        throw new Error(result.error || "이용권 등록에 실패했습니다.");
+      if (result.code === "EMAIL_NOT_FOUND") {
+        toast({
+          title: "이메일 찾을 수 없음",
+          description: "패스트캠퍼스 계정 이메일을 입력해주세요.",
+          variant: "destructive",
+        });
+      } else if (result.code === "ALREADY_ACTIVE") {
+        toast({
+          title: "이미 프리미엄 이용권이 등록되어 있습니다.",
+          variant: "destructive",
+        });
+      } else if (result.code === "ACCOUNT_ERROR") {
+        toast({
+          title: "이용권 등록 중 오류가 발생했습니다.",
+          variant: "destructive",
+        });
+      } else if (result.code === "UPDATE_ERROR") {
+        toast({
+          title: "이용권 등록 중 오류가 발생했습니다.",
+          variant: "destructive",
+        });
+      } else {
+        if (result.code === "SUCCESS") {
+          toast({
+            title: "이용권 등록 완료",
+            description: "프리미엄 기능을 이용하실 수 있습니다.",
+            variant: "default",
+          });
+        } else {
+          toast({
+            title: "이용권 등록 실패",
+            description: "알 수 없는 오류가 발생했습니다.",
+            variant: "destructive",
+          });
+        }
+
+        form.reset();
+        setOpen(false);
       }
-
-      // 성공 시 처리
-      toast({
-        title: "이용권 등록 완료",
-        description: "프리미엄 기능을 이용하실 수 있습니다.",
-        variant: "default",
-      });
-
-      form.reset();
-      setOpen(false);
     } catch (error) {
       // 에러 처리
       toast({
@@ -437,14 +468,7 @@ function CouponDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          variant="link"
-          className="text-muted-foreground hover:text-primary"
-        >
-          이미 이용권을 갖고 계신가요?
-        </Button>
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>이용권 등록</DialogTitle>
@@ -460,7 +484,7 @@ function CouponDialog() {
             <Input
               id="email"
               type="email"
-              placeholder="이메일을 입력해주세요"
+              placeholder="패스트캠퍼스 계정 이메일을 입력해주세요"
               className={cn(
                 "w-full",
                 form.formState.errors.email && "border-red-500"
@@ -474,25 +498,6 @@ function CouponDialog() {
             )}
           </div>
           <div className="space-y-2">
-            <label
-              htmlFor="coupon"
-              className="text-sm font-medium text-gray-700"
-            >
-              이용권 코드
-            </label>
-            <div className="space-y-2">
-              <Input
-                id="coupon"
-                placeholder="이용권 코드를 입력해주세요"
-                className={cn(form.formState.errors.coupon && "border-red-500")}
-                {...form.register("coupon")}
-              />
-              {form.formState.errors.coupon && (
-                <p className="text-sm text-red-500">
-                  {form.formState.errors.coupon.message}
-                </p>
-              )}
-            </div>
             <Button
               type="submit"
               className="w-full"

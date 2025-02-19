@@ -1,46 +1,63 @@
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createPureClient } from "@/lib/supabase/server";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { email, coupon } = await request.json();
+    const { email } = await request.json();
 
-    const supabase = createRouteHandlerClient({ cookies });
+    const supabase = await createPureClient();
 
     // 이용권 코드 유효성 검증
-    const { data: couponData, error: couponError } = await supabase
-      .from("premium_coupons")
+    const { data: accountData, error: accountError } = await supabase
+      .from("accounts")
       .select("*")
-      .eq("code", coupon)
-      .eq("is_used", false)
-      .single();
+      .eq("email", email)
+      .maybeSingle();
 
-    if (couponError || !couponData) {
+    if (accountError) {
+      console.log(accountError);
+
       return NextResponse.json(
-        { error: "유효하지 않은 이용권 코드입니다." },
+        { error: "이용권 등록 중 오류가 발생했습니다.", code: "ACCOUNT_ERROR" },
+        { status: 500 }
+      );
+    }
+
+    if (!accountData) {
+      return NextResponse.json(
+        { error: "등록된 이메일 정보가 없습니다.", code: "EMAIL_NOT_FOUND" },
         { status: 400 }
       );
     }
 
-    // 트랜잭션 시작: 이용권 사용 처리 및 프리미엄 계정 활성화
-    const { error: updateError } = await supabase.rpc(
-      "activate_premium_coupon",
-      {
-        p_email: email,
-        p_coupon_code: coupon,
-      }
-    );
+    if (accountData.is_active) {
+      return NextResponse.json(
+        {
+          error: "이미 프리미엄 이용권이 등록되어 있습니다.",
+          code: "ALREADY_ACTIVE",
+        },
+        { status: 400 }
+      );
+    }
+
+    const { error: updateError } = await supabase
+      .from("accounts")
+      .update({ is_active: true })
+      .eq("email", email);
 
     if (updateError) {
+      console.log(updateError);
+
       return NextResponse.json(
-        { error: "이용권 등록 중 오류가 발생했습니다." },
+        { error: "이용권 등록 중 오류가 발생했습니다.", code: "UPDATE_ERROR" },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ success: true });
-  } catch {
+  } catch (err) {
+    console.log(err);
+
     return NextResponse.json(
       { error: "서버 오류가 발생했습니다." },
       { status: 500 }

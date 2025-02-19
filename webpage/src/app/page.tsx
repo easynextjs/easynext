@@ -178,7 +178,7 @@ export default function Home() {
             >
               <a href="https://github.com/easynextjs/easynext" target="_blank">
                 <Github className="w-4 h-4" />
-                GitHub
+                Docs
               </a>
             </Button>
           </motion.div>

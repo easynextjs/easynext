@@ -41,7 +41,10 @@ export class LoginCommand extends CommandRunner {
       writeToAuthConfigFile({ ...this.config, token: result.access_token });
 
       console.log(chalk.green('로그인 성공!'));
-      console.log(chalk.green('프리미엄 이용권 활성화 완료!'));
+      console.log(
+        chalk.green('아래 링크를 통해 프리미엄 이용 안내를 확인해주세요.'),
+      );
+      console.log(chalk.green('https://easynext.org/premium/guide'));
     } catch (error) {
       console.error(chalk.red('예상치 못한 오류가 발생했습니다:'), error);
       process.exit(1);

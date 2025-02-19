@@ -187,8 +187,9 @@ export default function PremiumPage() {
             80% 단축하세요
           </h1>
           <p className="text-xl text-black/80 break-keep">
-            모든 기능이 준비된 Next.js 템플릿으로 나만의 커뮤니티, SaaS, AI
-            서비스를 순식간에 완성해보세요
+            모든 기능이 준비된 Next.js 템플릿으로
+            <br className="hidden md:block" />
+            나만의 커뮤니티, SaaS, AI 서비스를 순식간에 완성해보세요
           </p>
 
           <div className="flex flex-col items-center gap-4">
@@ -205,7 +206,7 @@ export default function PremiumPage() {
                     variant="link"
                     className="text-muted-foreground hover:text-primary"
                   >
-                    이미 이용권을 갖고 계신가요?
+                    이미 강의를 구매하셨나요?
                   </Button>
                 </CouponDialog>
               </div>

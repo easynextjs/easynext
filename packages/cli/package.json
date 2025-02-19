@@ -45,6 +45,7 @@
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
+    "@supabase/supabase-js": "^2.48.1",
     "@vercel/error-utils": "2.0.3",
     "ansi-escapes": "4.3.2",
     "arg": "5.0.2",

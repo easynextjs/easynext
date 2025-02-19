@@ -1,0 +1,59 @@
+import { Command, CommandRunner } from 'nest-commander';
+import * as chalk from 'chalk';
+import { GlobalConfig } from '@/global/config/global.config';
+import { writeToAuthConfigFile } from '@/util/config/files';
+
+@Command({
+  name: 'login',
+  description: '이메일로 로그인합니다',
+})
+export class LoginCommand extends CommandRunner {
+  constructor(private config: GlobalConfig) {
+    super();
+  }
+
+  async run(passedParams: string[]): Promise<void> {
+    const [email] = passedParams;
+
+    if (!email) {
+      console.error(chalk.red('이메일 주소를 입력해주세요.'));
+      console.error(chalk.yellow('사용법: easynext login <email>'));
+      process.exit(1);
+    }
+
+    try {
+      const result = await fetch(`https://easynext.org/api/premium/cli-login`, {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+      }).then((res) => res.json());
+
+      if (!isValidResult(result) || !result?.success || !result?.access_token) {
+        console.error(
+          chalk.red('로그인 실패:'),
+          '알 수 없는 오류가 발생했습니다.',
+        );
+        process.exit(1);
+      }
+
+      writeToAuthConfigFile({ ...this.config, token: result.access_token });
+
+      console.log(chalk.green('로그인 성공!'));
+      console.log(chalk.blue('이메일을 확인하여 인증을 완료해주세요.'));
+    } catch (error) {
+      console.error(chalk.red('예상치 못한 오류가 발생했습니다:'), error);
+      process.exit(1);
+    }
+  }
+}
+
+function isValidResult(
+  result: unknown,
+): result is { success: boolean; access_token: string } {
+  return (
+    typeof result === 'object' &&
+    result !== null &&
+    'success' in result &&
+    'access_token' in result &&
+    typeof result.access_token === 'string'
+  );
+}

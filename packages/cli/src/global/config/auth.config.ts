@@ -3,6 +3,7 @@ export class AuthConfig {
   '// Docs': string;
 
   skipWrite?: boolean;
+  token?: string;
 
   constructor(parial: AuthConfig) {
     Object.assign(this, parial);

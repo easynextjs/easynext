@@ -5,7 +5,8 @@ import { writeToAuthConfigFile } from '@/util/config/files';
 
 @Command({
   name: 'login',
-  description: '이메일로 로그인합니다',
+  description: '토큰정보 로그인합니다',
+  arguments: '<token>',
 })
 export class LoginCommand extends CommandRunner {
   constructor(private config: GlobalConfig) {

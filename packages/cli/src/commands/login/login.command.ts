@@ -21,7 +21,14 @@ export class LoginCommand extends CommandRunner {
       process.exit(1);
     }
 
+    if (!isValidEmail(email)) {
+      console.error(chalk.red('이메일 주소 형식이 올바르지 않습니다.'));
+      process.exit(1);
+    }
+
     try {
+      console.log(chalk.blue('로그인 정보 확인중...'));
+
       const result = await fetch(`https://easynext.org/api/premium/cli-login`, {
         method: 'POST',
         body: JSON.stringify({ email }),
@@ -56,4 +63,8 @@ function isValidResult(
     'access_token' in result &&
     typeof result.access_token === 'string'
   );
+}
+
+function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

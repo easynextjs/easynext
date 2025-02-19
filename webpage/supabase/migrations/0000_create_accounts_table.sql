@@ -7,3 +7,10 @@ create table accounts (
 
 -- RLS 정책 설정
 alter table accounts enable row level security;
+
+-- 이메일로 is_active 조회 정책 추가 (이메일 필터 필수)
+create policy "Anyone can check account status by email"
+on accounts for select
+using (
+  email = any(regexp_split_to_array(current_setting('request.query.email', true), ','))
+);

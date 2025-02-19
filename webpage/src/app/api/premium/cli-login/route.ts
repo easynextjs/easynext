@@ -3,7 +3,14 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    const { email } = await request.json();
+    const { token } = await request.json();
+
+    if (!token) {
+      return NextResponse.json(
+        { error: "토큰이 필요합니다.", code: "TOKEN_REQUIRED" },
+        { status: 400 }
+      );
+    }
 
     const supabase = await createPureClient();
 
@@ -11,7 +18,7 @@ export async function POST(request: Request) {
     const { data: accountData, error: accountError } = await supabase
       .from("accounts")
       .select("is_active, access_token")
-      .eq("email", email)
+      .eq("access_token", token)
       .maybeSingle();
 
     if (accountError) {
@@ -25,37 +32,21 @@ export async function POST(request: Request) {
 
     if (!accountData) {
       return NextResponse.json(
-        { error: "등록된 이메일 정보가 없습니다.", code: "EMAIL_NOT_FOUND" },
+        { error: "유효하지 않은 토큰입니다.", code: "TOKEN_NOT_FOUND" },
         { status: 400 }
       );
     }
 
-    if (accountData.is_active) {
-      return NextResponse.json({
-        success: true,
-        access_token: accountData.access_token,
-      });
-    }
-
-    const accessToken = crypto.randomUUID();
-
-    const { error: updateError } = await supabase
-      .from("accounts")
-      .update({ is_active: true, access_token: accessToken })
-      .eq("email", email);
-
-    if (updateError) {
-      console.log(updateError);
-
+    if (!accountData.is_active) {
       return NextResponse.json(
-        { error: "이용권 등록 중 오류가 발생했습니다.", code: "UPDATE_ERROR" },
-        { status: 500 }
+        { error: "활성화되지 않은 계정입니다.", code: "ACCOUNT_INACTIVE" },
+        { status: 400 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      access_token: accessToken,
+      access_token: accountData.access_token,
     });
   } catch (err) {
     console.log(err);

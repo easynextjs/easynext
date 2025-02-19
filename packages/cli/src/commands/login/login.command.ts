@@ -13,16 +13,11 @@ export class LoginCommand extends CommandRunner {
   }
 
   async run(passedParams: string[]): Promise<void> {
-    const [email] = passedParams;
+    const [token] = passedParams;
 
-    if (!email) {
-      console.error(chalk.red('이메일 주소를 입력해주세요.'));
-      console.error(chalk.yellow('사용법: easynext login <email>'));
-      process.exit(1);
-    }
-
-    if (!isValidEmail(email)) {
-      console.error(chalk.red('이메일 주소 형식이 올바르지 않습니다.'));
+    if (!token) {
+      console.error(chalk.red('토큰 정보를 입력해주세요.'));
+      console.error(chalk.yellow('사용법: easynext login <token>'));
       process.exit(1);
     }
 
@@ -31,7 +26,7 @@ export class LoginCommand extends CommandRunner {
 
       const result = await fetch(`https://easynext.org/api/premium/cli-login`, {
         method: 'POST',
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ token }),
       }).then((res) => res.json());
 
       if (!isValidResult(result) || !result?.success || !result?.access_token) {
@@ -63,8 +58,4 @@ function isValidResult(
     'access_token' in result &&
     typeof result.access_token === 'string'
   );
-}
-
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

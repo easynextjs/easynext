@@ -30,19 +30,20 @@ export async function POST(request: Request) {
       );
     }
 
-    if (accountData.is_active) {
-      return NextResponse.json(
-        {
-          error: "이미 프리미엄 이용권이 등록되어 있습니다.",
-          code: "ALREADY_ACTIVE",
-        },
-        { status: 400 }
-      );
+    if (accountData.is_active && accountData.access_token) {
+      return NextResponse.json({
+        success: true,
+        error: "이미 프리미엄 이용권이 등록되어 있습니다.",
+        code: "ALREADY_ACTIVE",
+        access_token: accountData.access_token,
+      });
     }
+
+    const accessToken = crypto.randomUUID();
 
     const { error: updateError } = await supabase
       .from("accounts")
-      .update({ is_active: true })
+      .update({ is_active: true, access_token: accessToken })
       .eq("email", email);
 
     if (updateError) {
@@ -54,7 +55,11 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({
+      success: true,
+      code: "SUCCESS",
+      access_token: accessToken,
+    });
   } catch (err) {
     console.log(err);
 

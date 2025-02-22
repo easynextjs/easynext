@@ -176,7 +176,7 @@ function addDependencies(packageJson: any) {
     tailwindcss: '^3.4.1',
   };
 
-  // shadcn-ui
+  // shadcn-ui, tailwindcss
   packageJson.dependencies = {
     ...packageJson.dependencies,
     '@radix-ui/react-accordion': '^1.2.3',
@@ -197,6 +197,7 @@ function addDependencies(packageJson: any) {
     ...packageJson.devDependencies,
     'tailwind-merge': '^2.5.2',
     'tailwindcss-animate': '^1.0.7',
+    '@tailwindcss/typography': '^0.5.10',
   };
 
   // useful dependencies

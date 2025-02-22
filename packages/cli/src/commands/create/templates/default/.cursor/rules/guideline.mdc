@@ -1,6 +1,6 @@
 ---
 description: Senior Next.js Developer Guidelines
-globs: 
+globs: *.tsx
 ---
 
 # Senior Next.js Developer Guidelines

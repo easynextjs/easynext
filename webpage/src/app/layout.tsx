@@ -11,7 +11,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Easiest Next.js with Cursor",
+    default: "Easiest Next.js with Cursor | EasyNext",
     template: "%s | EasyNext",
   },
   description: "EasyNext | Get Pro-created Next.js bootstrap just in seconds",

@@ -214,5 +214,6 @@ function addDependencies(packageJson: any) {
     'react-hook-form': '^7',
     '@tanstack/react-query': '^5',
     'framer-motion': '^11',
+    axios: '^1.7.9',
   };
 }

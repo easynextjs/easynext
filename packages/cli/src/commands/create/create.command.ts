@@ -139,9 +139,14 @@ export class CreateCommand extends AbstractCommand {
       // 기본 설정 진행
       const packageManager = getPkgManager();
       const isOnline = await getOnline();
+
+      console.log(`Installing dependencies...`);
+
       await install(packageManager, isOnline);
 
-      output.success('템플릿이 성공적으로 설치되었습니다.');
+      output.success(
+        `템플릿이 성공적으로 설치되었습니다. ${chalk.green(appName)}`,
+      );
     } catch (error) {
       console.error('Error: 템플릿 다운로드 중 오류가 발생했습니다.');
       console.error(error);

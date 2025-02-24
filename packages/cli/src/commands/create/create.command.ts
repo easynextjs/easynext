@@ -91,6 +91,8 @@ export class CreateCommand extends AbstractCommand {
       process.exit(1);
     }
 
+    console.log(`Downloading template from ${result.download_url}`);
+
     // 4. 템플릿 다운로드
     try {
       const response = await axios.get(result.download_url, {

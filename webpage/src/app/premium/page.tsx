@@ -142,7 +142,7 @@ export default function PremiumPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-background to-gray-50 px-4">
       <motion.div
         className="container mx-auto px-4 pb-16 space-y-20 border-x border-gray-700"
         variants={containerVariants}

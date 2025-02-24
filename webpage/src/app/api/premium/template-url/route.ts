@@ -50,6 +50,29 @@ export async function POST(request: Request) {
     const supabase = await createPureClient();
 
     // 이용권 코드 유효성 검증
+    const { data: accountData, error: accountError } = await supabase
+      .from("accounts")
+      .select("is_active")
+      .eq("access_token", token)
+      .maybeSingle();
+
+    if (accountError) {
+      return NextResponse.json(
+        {
+          error: "계정 정보 조회 중 오류가 발생했습니다.",
+          code: "ACCOUNT_ERROR",
+        },
+        { status: 500 }
+      );
+    }
+
+    if (!accountData || !accountData.is_active) {
+      return NextResponse.json(
+        { error: "유효하지 않은 토큰입니다.", code: "TOKEN_NOT_FOUND" },
+        { status: 400 }
+      );
+    }
+    // 이용권 코드 유효성 검증
     const { data: templateData, error: templateError } = await supabase
       .from("templates")
       .select("storage_bucket_name, storage_object_key")

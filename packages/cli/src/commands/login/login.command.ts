@@ -1,7 +1,7 @@
 import { Command, CommandRunner } from 'nest-commander';
 import * as chalk from 'chalk';
-import { GlobalConfig } from '@/global/config/global.config';
 import { writeToAuthConfigFile } from '@/util/config/files';
+import { AuthConfig } from '@/global/config/auth.config';
 
 @Command({
   name: 'login',
@@ -9,7 +9,7 @@ import { writeToAuthConfigFile } from '@/util/config/files';
   arguments: '<token>',
 })
 export class LoginCommand extends CommandRunner {
-  constructor(private config: GlobalConfig) {
+  constructor(private config: AuthConfig) {
     super();
   }
 

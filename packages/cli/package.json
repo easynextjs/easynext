@@ -47,9 +47,11 @@
     "@nestjs/core": "^10.0.0",
     "@supabase/supabase-js": "^2.39.0",
     "@vercel/error-utils": "2.0.3",
+    "adm-zip": "0.5.16",
     "ansi-escapes": "4.3.2",
     "arg": "5.0.2",
     "async-sema": "3.1.1",
+    "axios": "^1.6.2",
     "chalk": "4",
     "cross-spawn": "7.0.6",
     "es-toolkit": "1.31.0",
@@ -65,8 +67,7 @@
     "tar": "^6.2.0",
     "validate-npm-package-name": "6.0.0",
     "write-json-file": "2.2.0",
-    "xdg-app-paths": "5.1.0",
-    "axios": "^1.6.2"
+    "xdg-app-paths": "5.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

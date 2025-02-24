@@ -139,6 +139,8 @@ export class CreateCommand extends AbstractCommand {
       // 임시 디렉토리 삭제
       await rm(tempExtractDir, { recursive: true, force: true });
 
+      process.chdir(root);
+
       // 기본 설정 진행
       const packageManager = getPkgManager();
       const isOnline = await getOnline();

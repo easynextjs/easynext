@@ -11,11 +11,12 @@ import chalk, { bold } from 'chalk';
 import output from '@/output-manager';
 import { install } from './helpers/install';
 import { getOnline } from './helpers/is-online';
-import { rm, writeFile } from 'fs/promises';
+import { writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
 import { join } from 'path';
 import AdmZip from 'adm-zip';
-import { readdir, rename } from 'fs/promises';
+import { isFolderEmpty } from './helpers/is-folder-empty';
+import { mkdirSync } from 'fs';
 
 interface CreateCommandOptions {
   template?: string;
@@ -112,32 +113,26 @@ export class CreateCommand extends AbstractCommand {
       // Content-Type 헤더를 확인하거나 파일 시그니처를 검사하여 파일 형식 확인
       const isZip = this.isZipFile(response.data as ArrayBuffer);
 
-      // 임시 디렉토리에 먼저 압축 해제
-      const tempExtractDir = join(tmpdir(), `extract-${Date.now()}`);
+      mkdirSync(root, { recursive: true });
+      if (!isFolderEmpty(root, appName)) {
+        process.exit(1);
+      }
 
       if (isZip) {
         // ZIP 파일 처리
         const zip = new AdmZip(tempFile);
-        zip.extractAllTo(tempExtractDir, true);
+        zip.extractAllTo(root, true);
       } else {
         // TAR 파일 처리 시도
         try {
           await extract({
             file: tempFile,
-            cwd: tempExtractDir,
+            cwd: root,
           });
         } catch {
           throw new Error('지원하지 않는 템플릿 파일 형식입니다.');
         }
       }
-
-      // 압축 해제된 첫 번째 디렉토리를 찾아서 appName으로 이동
-      const extractedFiles = await readdir(tempExtractDir);
-      const templateDir = join(tempExtractDir, extractedFiles[0]);
-      await rename(templateDir, root);
-
-      // 임시 디렉토리 삭제
-      await rm(tempExtractDir, { recursive: true, force: true });
 
       process.chdir(root);
 

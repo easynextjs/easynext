@@ -9,13 +9,14 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { CouponDialog } from "./_CouponDialog";
+import { PremiumDialog } from "./_PremiumDialog";
 
 const premiumTemplates = [
   {
     name: "랜딩페이지",
     description: "제품/서비스 소개 템플릿",
-    isLocked: true,
-    comingSoon: "02.24 공개 예정",
+    isLocked: false,
+    image: "/images/home/templates/landing.gif",
   },
   {
     name: "커뮤니티",
@@ -227,16 +228,26 @@ export default function PremiumPage() {
                 className="overflow-hidden border-2 border-gray-700 shadow-sm hover:shadow-md transition-all duration-300 group"
               >
                 {renderTemplatePreview(template)}
-                <div className="p-6 space-y-2 border-t border-gray-700">
-                  <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-semibold">{template.name}</h3>
-                    {template.isLocked && (
-                      <Lock className="w-4 h-4 text-gray-400" />
-                    )}
+                <div className="p-6 space-y-4 border-t border-gray-700">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-lg font-semibold">{template.name}</h3>
+                      {template.isLocked && (
+                        <Lock className="w-4 h-4 text-gray-400" />
+                      )}
+                    </div>
+                    <p className="text-muted-foreground">
+                      {template.description}
+                    </p>
                   </div>
-                  <p className="text-muted-foreground">
-                    {template.description}
-                  </p>
+                  <PremiumDialog>
+                    <Button
+                      className="w-full"
+                      variant={template.isLocked ? "outline" : "default"}
+                    >
+                      지금 사용하기
+                    </Button>
+                  </PremiumDialog>
                 </div>
               </Card>
             ))}

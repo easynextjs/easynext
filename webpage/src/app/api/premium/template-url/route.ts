@@ -6,7 +6,7 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 async function generatePresignedUrl(
   bucketName: string,
   objectKey: string,
-  expiresInSec = 60
+  expiresInSec = 600
 ) {
   const s3Client = new S3Client({
     region: "auto",

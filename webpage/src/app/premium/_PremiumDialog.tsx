@@ -34,6 +34,16 @@ export function PremiumDialog({ children }: PremiumDialogProps) {
               <br />
               프리미엄 템플릿을 평생 무료로 이용할 수 있습니다.
             </div>
+            <div className="mt-4 p-4 bg-muted rounded-lg">
+              <p className="font-medium text-sm text-muted-foreground">
+                프리미엄 이용자인 경우, 아래 명령어를 사용해주세요
+                <br />
+                (v0.1.13 버전 이상을 사용해주세요)
+              </p>
+              <code className="mt-2 block bg-background p-2 rounded text-sm">
+                easynext create 프로젝트이름 -t landing
+              </code>
+            </div>
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="flex flex-col gap-2 sm:flex-row sm:gap-0 sm:justify-end">

@@ -10,6 +10,7 @@ const s3Client = new S3Client({
     accessKeyId: process.env.CLOUDFLARE_R2_ACCESS_KEY,
     secretAccessKey: process.env.CLOUDFLARE_R2_SECRET_KEY,
   },
+  forcePathStyle: true,
 });
 
 async function generatePresignedUrl(

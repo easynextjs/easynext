@@ -29,8 +29,6 @@ export class CreateCommand extends AbstractCommand {
     passedParam: string[],
     options?: CreateCommandOptions,
   ): Promise<void> {
-    console.log({ options });
-
     const projectPath = passedParam[0].trim();
 
     const appPath = resolve(projectPath);
@@ -77,7 +75,7 @@ export class CreateCommand extends AbstractCommand {
 
     // 2. Premium 권한 확인
     const result = await fetch(
-      `https://easynext.org/api/premium/template-url/`,
+      `https://easynext.org/api/premium/template-url`,
       {
         method: 'POST',
         body: JSON.stringify({
@@ -86,6 +84,7 @@ export class CreateCommand extends AbstractCommand {
         }),
       },
     ).then((res) => res.json());
+
     if (!isValidResult(result) || !result?.success || !result?.download_url) {
       console.error('Error: 템플릿 다운로드 중 오류가 발생했습니다.');
       console.error(chalk.yellow('안내: https://easynext.org/premium/guide'));

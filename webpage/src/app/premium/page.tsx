@@ -242,10 +242,15 @@ export default function PremiumPage() {
                   </div>
                   <PremiumDialog>
                     <Button
-                      className="w-full"
+                      className={`w-full ${
+                        template.isLocked ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
                       variant={template.isLocked ? "outline" : "default"}
+                      disabled={template.isLocked}
                     >
-                      지금 사용하기
+                      {template.isLocked
+                        ? template.comingSoon
+                        : "지금 사용하기"}
                     </Button>
                   </PremiumDialog>
                 </div>

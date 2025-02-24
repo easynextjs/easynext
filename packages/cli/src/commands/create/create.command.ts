@@ -11,6 +11,10 @@ import chalk, { bold } from 'chalk';
 import output from '@/output-manager';
 import { install } from './helpers/install';
 import { getOnline } from './helpers/is-online';
+import { writeFile } from 'fs/promises';
+import { tmpdir } from 'os';
+import { join } from 'path';
+
 interface CreateCommandOptions {
   template?: string;
 }
@@ -101,9 +105,13 @@ export class CreateCommand extends AbstractCommand {
 
       const root = resolve(projectPath);
 
+      // 임시 파일 생성
+      const tempFile = join(tmpdir(), `template-${Date.now()}.tar.gz`);
+      await writeFile(tempFile, Buffer.from(response.data));
+
       // 5. 압축 해제 및 설치
       await extract({
-        file: response.data,
+        file: tempFile,
         cwd: root,
       });
 

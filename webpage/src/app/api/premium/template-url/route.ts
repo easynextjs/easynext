@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function generatePresignedUrl(
   bucketName: string,
   objectKey: string,
@@ -74,10 +75,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const url = await generatePresignedUrl(
-      templateData.storage_bucket_name,
-      templateData.storage_object_key
-    );
+    const url = `https://pub-1e1da3e1a18e4bf5bb237da6a27da929.r2.dev/${templateData.storage_object_key}`;
 
     return NextResponse.json({
       success: true,

@@ -8,7 +8,6 @@ import { assertRoot } from '@/util/check-root';
 @Command({
   name: 'auth',
   description: 'Next-Auth 인증 설정',
-  aliases: ['auth'],
   arguments: '[action]',
 })
 export class AuthCommand extends CommandRunner {

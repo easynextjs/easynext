@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.7
+
+- add supabase command
+
 ## 0.0.6
 
 - add version command

@@ -2,7 +2,7 @@ import { Command } from 'nest-commander';
 import { AbstractCommand } from '../abstract.command';
 import { initSupabase } from './actions/init';
 import output from '@/output-manager';
-import { checkRoot } from '@/util/check-root';
+import { assertRoot } from '@/util/check-root';
 
 @Command({
   name: 'supabase',
@@ -10,13 +10,7 @@ import { checkRoot } from '@/util/check-root';
 })
 export class SupabaseCommand extends AbstractCommand {
   async run(passedParam: string[]): Promise<void> {
-    // 1. package.json 확인
-    if (!checkRoot()) {
-      output.error(
-        'package.json을 찾을 수 없습니다. 프로젝트 루트 디렉토리에서 실행해주세요.',
-      );
-      process.exit(1);
-    }
+    assertRoot();
 
     if (passedParam.length === 0) {
       await initSupabase();

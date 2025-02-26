@@ -1,0 +1,28 @@
+import { Command, CommandRunner } from 'nest-commander';
+import output from '../../output-manager';
+import { initAuth } from './actions/init';
+import { assertRoot } from '@/util/check-root';
+
+@Command({
+  name: 'auth',
+  description: 'Next-Auth 인증 설정',
+  aliases: ['auth'],
+  arguments: '[action]',
+})
+export class AuthCommand extends CommandRunner {
+  async run(passedParam: string[]): Promise<void> {
+    assertRoot();
+
+    const action = passedParam[0] || 'init';
+
+    switch (action) {
+      case 'init':
+        await initAuth();
+        break;
+      default:
+        output.error(`알 수 없는 액션: ${action}`);
+        output.info('사용 가능한 액션: init');
+        process.exit(1);
+    }
+  }
+}

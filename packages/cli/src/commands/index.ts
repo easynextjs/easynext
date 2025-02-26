@@ -4,6 +4,7 @@ import { LangModule } from './lang/lang.module';
 import { LoginCommand } from './login/login.command';
 import { VersionModule } from './version/version.module';
 import { SupabaseModule } from './supabase/supabase.module';
+import { AuthCommand } from './auth/auth.command';
 
 export const commandModules = [
   CreateModule,
@@ -12,4 +13,5 @@ export const commandModules = [
   LoginCommand,
   VersionModule,
   SupabaseModule,
+  AuthCommand,
 ];

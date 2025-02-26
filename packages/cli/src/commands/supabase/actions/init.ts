@@ -13,7 +13,7 @@ export function initSupabase() {
     }
 
     if (!packageJson.dependencies['@supabase/ssr']) {
-      packageJson.dependencies['@supabase/ssr'] = '^0.0.10';
+      packageJson.dependencies['@supabase/ssr'] = '0.5.2';
       output.info('@supabase/ssr 패키지를 dependencies에 추가합니다.');
       fs.writeJsonSync(packageJsonPath, packageJson, { spaces: 2 });
     } else {

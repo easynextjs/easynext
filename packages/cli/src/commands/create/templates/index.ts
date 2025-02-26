@@ -128,6 +128,7 @@ export const installTemplate = async ({
       'react-dom': nextjsReactPeerVersion,
       next: version,
       'next-themes': '^0.4.3',
+      'server-only': '0.0.1',
     },
     devDependencies: {
       /* TypeScript dependencies */

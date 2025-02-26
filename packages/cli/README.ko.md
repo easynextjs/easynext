@@ -48,6 +48,9 @@ $ easynext lang <'ko' | 'en'>
 
 # 새 프로젝트 생성
 $ easynext create <project-name>
+
+# supabase 사용 설정
+$ easynext supabase
 ```
 
 ## 곧 추가될 명령어
@@ -58,9 +61,6 @@ $ easynext auth google|apple|kakao|naver
 
 # next-ui 사용 설정
 $ easynext next-ui
-
-# supabase 사용 설정
-$ easynext supabase
 
 # Google Sheet 연동 설정
 $ easynext google-sheet

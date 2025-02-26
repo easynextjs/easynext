@@ -52,6 +52,9 @@ $ easynext lang <'ko' | 'en'>
 
 # Create a new project
 $ easynext create <project-name>
+
+# Init supabase
+$ easynext supabase
 ```
 
 ## Coming Soon Commands
@@ -63,9 +66,6 @@ $ easynext auth google|apple|kakao|naver
 
 # Init next-ui
 $ easynext next-ui
-
-# Init supabase
-$ easynext supabase
 
 # Add Google Sheet modules
 $ easynext google-sheet

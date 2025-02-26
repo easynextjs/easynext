@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.0.6
+
+- add version command
+
 ## 0.0.5
 
 - add create command

@@ -19,7 +19,7 @@ import { version as PACKAGE_VERSION } from '../package.json';
 import output from './output-manager';
 
 async function main() {
-  output.info(`EasyNext v${PACKAGE_VERSION}`);
+  output.info(`EasyNext CLI v${PACKAGE_VERSION}`);
 
   await CommandFactory.run(AppModule, output);
 

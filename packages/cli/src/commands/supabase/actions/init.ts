@@ -160,13 +160,12 @@ globs: supabase/migrations/*.sql
 - Always specify column types explicitly
 - Include proper constraints (NOT NULL, UNIQUE, etc.) where appropriate
 - Add updated_at column to all tables, and use trigger to update it
+- always check other migrations to avoid conflicts
 
 ## Should
-- Keep migrations small and focused on a single concern
+- Keep migrations small 
 - Use consistent naming conventions for tables and columns
 - Use snake_case for all identifiers
-- Include down migrations when possible
-- Test migrations in development before applying to production
 - Document breaking changes
 
 ## Recommended Patterns
@@ -186,14 +185,10 @@ globs: supabase/migrations/*.sql
 ## Performance Considerations
 - Avoid adding/removing columns from large tables in production
 - Use appropriate data types to minimize storage
-- Consider partitioning for very large tables
 - Add indexes strategically (not excessively)
-- Use EXPLAIN ANALYZE to verify query performance
 
 ## Security Best Practices
 - Never store plaintext passwords
 - Use RLS policies to restrict data access
-- Grant minimal privileges to database roles
 - Sanitize all user inputs
-- Audit sensitive operations with triggers
 `;

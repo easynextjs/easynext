@@ -33,6 +33,7 @@ export async function initSupabase() {
     const envVars = [
       'NEXT_PUBLIC_SUPABASE_URL=your-supabase-url',
       'NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key',
+      'SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key',
     ];
 
     let envUpdated = false;
@@ -59,15 +60,6 @@ export async function initSupabase() {
     // client.ts 파일 생성
     const clientFilePath = path.join(supabaseDirPath, 'client.ts');
     if (!fs.existsSync(clientFilePath)) {
-      const clientContent = `import { createBrowserClient } from '@supabase/ssr'
-  
-  export function createClient() {
-    return createBrowserClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    )
-  }
-  `;
       fs.writeFileSync(clientFilePath, clientContent);
     } else {
       output.warn('src/lib/supabase/client.ts 중복');
@@ -76,31 +68,6 @@ export async function initSupabase() {
     // server.ts 파일 생성
     const serverFilePath = path.join(supabaseDirPath, 'server.ts');
     if (!fs.existsSync(serverFilePath)) {
-      const serverContent = `import { createServerClient } from '@supabase/ssr'
-  import { cookies } from 'next/headers'
-  
-  export function createClient() {
-    const cookieStore = cookies()
-  
-    return createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          get(name: string) {
-            return cookieStore.get(name)?.value
-          },
-          set(name: string, value: string, options: any) {
-            cookieStore.set({ name, value, ...options })
-          },
-          remove(name: string, options: any) {
-            cookieStore.set({ name, value: '', ...options })
-          },
-        },
-      }
-    )
-  }
-  `;
       fs.writeFileSync(serverFilePath, serverContent);
     } else {
       output.warn('src/lib/supabase/server.ts 중복');
@@ -142,6 +109,64 @@ export async function initSupabase() {
     process.exit(1);
   }
 }
+
+const clientContent = `import { createBrowserClient } from "@supabase/ssr";
+
+export function createClient() {
+  return createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+}
+`;
+
+const serverContent = `import "server-only";
+
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+
+export async function createClient() {
+  const cookieStore = await cookies();
+
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return cookieStore.getAll();
+        },
+        setAll(cookiesToSet) {
+          try {
+            cookiesToSet.forEach(({ name, value, options }) =>
+              cookieStore.set(name, value, options)
+            );
+          } catch {
+            // The \`setAll\` method was called from a Server Component.
+            // This can be ignored if you have middleware refreshing
+            // user sessions.
+          }
+        },
+      },
+    }
+  );
+}
+
+export async function createPureClient() {
+  return createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!,
+    {
+      cookies: {
+        getAll() {
+          return [];
+        },
+        setAll() {},
+      },
+    }
+  );
+}
+`;
 
 const supabaseRules = `
 ---

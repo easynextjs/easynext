@@ -168,11 +168,12 @@ export async function createPureClient() {
 }
 `;
 
-const supabaseRules = `
----
+const supabaseRules = `---
 description: Supabase Migration SQL Guideline
 globs: supabase/migrations/*.sql
 ---
+
+# Supabase Migration SQL Guideline
 
 ## Must
 - Each migration file must have a unique name with number prefix (e.g., \`0001_create_users_table.sql\`)

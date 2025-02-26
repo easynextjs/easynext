@@ -19,9 +19,9 @@ export class SupabaseCommand extends AbstractCommand {
     }
 
     if (passedParam.length === 0) {
-      initSupabase();
+      await initSupabase();
     } else if (passedParam[0] === 'init') {
-      initSupabase();
+      await initSupabase();
     } else {
       output.error('지원하지 않는 명령어입니다.');
     }

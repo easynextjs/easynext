@@ -1,8 +1,10 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import output from '../../../output-manager';
+import { install } from '@/commands/create/helpers/install';
+import { getOnline } from '@/commands/create/helpers/is-online';
 
-export function initSupabase() {
+export async function initSupabase() {
   try {
     const packageJsonPath = path.join(process.cwd(), 'package.json');
 
@@ -14,10 +16,9 @@ export function initSupabase() {
 
     if (!packageJson.dependencies['@supabase/ssr']) {
       packageJson.dependencies['@supabase/ssr'] = '0.5.2';
-      output.info('@supabase/ssr 패키지를 dependencies에 추가합니다.');
       fs.writeJsonSync(packageJsonPath, packageJson, { spaces: 2 });
     } else {
-      output.info('@supabase/ssr 패키지가 이미 설치되어 있습니다.');
+      output.warn('@supabase/ssr 패키지 중복');
     }
 
     // 3. .env.local 파일 확인 및 생성
@@ -47,9 +48,8 @@ export function initSupabase() {
 
     if (envUpdated) {
       fs.writeFileSync(envPath, envContent);
-      output.info('.env.local 파일에 Supabase 환경 변수를 추가했습니다.');
     } else {
-      output.info('Supabase 환경 변수가 이미 .env.local 파일에 존재합니다.');
+      output.warn('.env.local 파일 환경 변수 중복');
     }
 
     // 4. src/lib/supabase 디렉토리 생성
@@ -69,9 +69,8 @@ export function initSupabase() {
   }
   `;
       fs.writeFileSync(clientFilePath, clientContent);
-      output.info('src/lib/supabase/client.ts 파일을 생성했습니다.');
     } else {
-      output.info('src/lib/supabase/client.ts 파일이 이미 존재합니다.');
+      output.warn('src/lib/supabase/client.ts 중복');
     }
 
     // server.ts 파일 생성
@@ -103,9 +102,8 @@ export function initSupabase() {
   }
   `;
       fs.writeFileSync(serverFilePath, serverContent);
-      output.info('src/lib/supabase/server.ts 파일을 생성했습니다.');
     } else {
-      output.info('src/lib/supabase/server.ts 파일이 이미 존재합니다.');
+      output.warn('src/lib/supabase/server.ts 중복');
     }
 
     // 5. supabase/migrations 디렉토리 생성
@@ -125,16 +123,16 @@ export function initSupabase() {
     );
     if (!fs.existsSync(rulesFilePath)) {
       fs.writeFileSync(rulesFilePath, supabaseRules);
-      output.info('.cursor/rules/supabase.mdc 파일을 생성했습니다.');
     } else {
-      output.info('.cursor/rules/supabase.mdc 파일이 이미 존재합니다.');
+      output.warn('.cursor/rules/supabase.mdc 중복');
     }
 
-    output.success('Supabase 설정이 완료되었습니다!');
-    output.info('다음 명령어로 패키지를 설치하세요:');
-    output.info('npm install 또는 yarn install 또는 pnpm install');
-    output.info(
-      '그리고 .env.local 파일에서 Supabase URL과 Anon Key를 설정하세요.',
+    const isOnline = await getOnline();
+    console.log('\nInstalling dependencies ...');
+    await install('npm', isOnline);
+
+    output.success(
+      'Supabase 설정이 완료되었습니다! .env.local 파일을 확인해주세요.',
     );
   } catch (error) {
     output.error('Supabase 설정 중 오류가 발생했습니다:');

@@ -60,14 +60,15 @@ $ easynext supabase
 $ easynext auth
 or
 $ easynext auth init
+
+# Set oauth provider
+$ easynext auth <'kakao' | 'idpw'>
 ```
 
 ## Coming Soon Commands
 
 ```bash
 
-# Set oauth provider
-$ easynext auth <'google' | 'apple' | 'kakao' | 'naver'>
 
 # Init next-ui
 $ easynext next-ui

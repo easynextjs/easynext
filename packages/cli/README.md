@@ -55,14 +55,19 @@ $ easynext create <project-name>
 
 # Init supabase
 $ easynext supabase
+
+# Init next-auth
+$ easynext auth
+or
+$ easynext auth init
 ```
 
 ## Coming Soon Commands
 
 ```bash
 
-# Set google auth
-$ easynext auth google|apple|kakao|naver
+# Set oauth provider
+$ easynext auth <'google' | 'apple' | 'kakao' | 'naver'>
 
 # Init next-ui
 $ easynext next-ui

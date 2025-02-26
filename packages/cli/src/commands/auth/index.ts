@@ -10,3 +10,4 @@ import { ConfigModule } from '@/global/config/config.module';
 export class AuthModule {}
 
 export * from './auth.command';
+export * from './actions/kakao';

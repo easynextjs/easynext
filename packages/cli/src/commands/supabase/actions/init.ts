@@ -4,14 +4,7 @@ import output from '../../../output-manager';
 
 export function initSupabase() {
   try {
-    // 1. package.json 확인
     const packageJsonPath = path.join(process.cwd(), 'package.json');
-    if (!fs.existsSync(packageJsonPath)) {
-      output.error(
-        'package.json을 찾을 수 없습니다. 프로젝트 루트 디렉토리에서 실행해주세요.',
-      );
-      process.exit(1);
-    }
 
     // 2. @supabase/ssr 패키지 추가
     const packageJson = fs.readJsonSync(packageJsonPath);
@@ -115,6 +108,28 @@ export function initSupabase() {
       output.info('src/lib/supabase/server.ts 파일이 이미 존재합니다.');
     }
 
+    // 5. supabase/migrations 디렉토리 생성
+    const migrationsDirPath = path.join(
+      process.cwd(),
+      'supabase',
+      'migrations',
+    );
+    fs.ensureDirSync(migrationsDirPath);
+
+    // 6. supabase rules 파일 생성
+    const rulesFilePath = path.join(
+      process.cwd(),
+      '.cursor',
+      'rules',
+      'supabase.mdc',
+    );
+    if (!fs.existsSync(rulesFilePath)) {
+      fs.writeFileSync(rulesFilePath, supabaseRules);
+      output.info('.cursor/rules/supabase.mdc 파일을 생성했습니다.');
+    } else {
+      output.info('.cursor/rules/supabase.mdc 파일이 이미 존재합니다.');
+    }
+
     output.success('Supabase 설정이 완료되었습니다!');
     output.info('다음 명령어로 패키지를 설치하세요:');
     output.info('npm install 또는 yarn install 또는 pnpm install');
@@ -129,3 +144,56 @@ export function initSupabase() {
     process.exit(1);
   }
 }
+
+const supabaseRules = `
+---
+description: Supabase Migration SQL Guideline
+globs: supabase/migrations/*.sql
+---
+
+## Must
+- Each migration file must have a unique name with number prefix (e.g., \`0001_create_users_table.sql\`)
+- Each migration must be idempotent (can be run multiple times without error)
+- Use \`CREATE TABLE IF NOT EXISTS\` instead of just \`CREATE TABLE\`
+- Include proper error handling with \`BEGIN\` and \`EXCEPTION\` blocks
+- Add comments for complex operations
+- Always specify column types explicitly
+- Include proper constraints (NOT NULL, UNIQUE, etc.) where appropriate
+- Add updated_at column to all tables, and use trigger to update it
+
+## Should
+- Keep migrations small and focused on a single concern
+- Use consistent naming conventions for tables and columns
+- Use snake_case for all identifiers
+- Include down migrations when possible
+- Test migrations in development before applying to production
+- Document breaking changes
+
+## Recommended Patterns
+- Use RLS (Row Level Security) for access control
+- Set up proper indexes for frequently queried columns
+- Use foreign key constraints to maintain referential integrity
+- Leverage Postgres extensions when appropriate
+- Use enums for fields with a fixed set of values
+- Consider using views for complex queries
+
+## Schema Organization
+- Group related tables together
+- Use schemas to organize tables by domain
+- Consider using Postgres schemas for multi-tenant applications
+- Keep authentication tables in the auth schema
+
+## Performance Considerations
+- Avoid adding/removing columns from large tables in production
+- Use appropriate data types to minimize storage
+- Consider partitioning for very large tables
+- Add indexes strategically (not excessively)
+- Use EXPLAIN ANALYZE to verify query performance
+
+## Security Best Practices
+- Never store plaintext passwords
+- Use RLS policies to restrict data access
+- Grant minimal privileges to database roles
+- Sanitize all user inputs
+- Audit sensitive operations with triggers
+`;

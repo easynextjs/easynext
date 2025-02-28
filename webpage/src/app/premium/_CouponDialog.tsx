@@ -161,6 +161,15 @@ export function CouponDialog({ children }: { children: React.ReactNode }) {
               <div className="bg-slate-100 p-3 rounded-md">
                 <code className="text-sm">easynext login {accessToken}</code>
               </div>
+              <p className="text-sm text-gray-400 hover:text-gray-600 underline">
+                <a
+                  href="https://sumins.notion.site/easynext-register-guide?pvs=4"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  등록방법을 더 자세하게 알고싶어요
+                </a>
+              </p>
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end gap-2">

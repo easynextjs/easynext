@@ -63,6 +63,12 @@ $ easynext auth init
 
 # Set oauth provider
 $ easynext auth <'kakao' | 'idpw'>
+
+# Add Google Analytics
+$ easynext gtag
+
+# Add Microsoft Clarity
+$ easynext clarity
 ```
 
 ## Coming Soon Commands

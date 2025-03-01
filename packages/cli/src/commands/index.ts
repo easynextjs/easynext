@@ -5,6 +5,7 @@ import { LoginCommand } from './login/login.command';
 import { VersionModule } from './version/version.module';
 import { SupabaseModule } from './supabase/supabase.module';
 import { AuthCommand } from './auth/auth.command';
+import { GtagModule } from './gtag/gtag.module';
 
 export const commandModules = [
   CreateModule,
@@ -14,4 +15,5 @@ export const commandModules = [
   VersionModule,
   SupabaseModule,
   AuthCommand,
+  GtagModule,
 ];

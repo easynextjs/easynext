@@ -3,6 +3,7 @@ import * as path from 'path';
 import output from '../../../output-manager';
 import { install } from '@/commands/create/helpers/install';
 import { getOnline } from '@/commands/create/helpers/is-online';
+import i18n from '@/util/i18n';
 
 export async function initSupabase() {
   try {
@@ -95,14 +96,12 @@ export async function initSupabase() {
     }
 
     const isOnline = await getOnline();
-    console.log('\nInstalling dependencies ...');
+    console.log(`\n${i18n.t('supabase.installing')}`);
     await install('npm', isOnline);
 
-    output.success(
-      'Supabase 설정이 완료되었습니다! .env.local 파일을 확인해주세요.',
-    );
+    output.success(i18n.t('supabase.success'));
   } catch (error) {
-    output.error('Supabase 설정 중 오류가 발생했습니다:');
+    output.error(i18n.t('supabase.error'));
     output.error(
       error instanceof Error ? error.message : JSON.stringify(error),
     );

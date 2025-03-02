@@ -1,6 +1,7 @@
 import { Command } from 'nest-commander';
 import { AbstractCommand } from '../abstract.command';
 import output from '@/output-manager';
+import i18n from '@/util/i18n';
 
 @Command({
   name: 'sentry',
@@ -8,7 +9,7 @@ import output from '@/output-manager';
 })
 export class SentryCommand extends AbstractCommand {
   async run(): Promise<void> {
-    output.info('Sentry 설정을 추가하려면 다음 명령어를 복사하여 실행하세요:');
+    output.info(i18n.t('sentry.installing'));
     output.info('npx @sentry/wizard@latest -i nextjs');
   }
 }

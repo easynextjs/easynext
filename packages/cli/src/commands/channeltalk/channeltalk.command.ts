@@ -3,6 +3,7 @@ import { AbstractCommand } from '../abstract.command';
 import * as fs from 'fs';
 import * as path from 'path';
 import output from '../../output-manager';
+import i18n from '@/util/i18n';
 
 @Command({
   name: 'channeltalk',
@@ -29,18 +30,18 @@ export class ChanneltalkCommand extends AbstractCommand {
       const pluginKey = await this.promptForInput();
 
       if (!pluginKey || !pluginKey.trim()) {
-        output.error('유효한 채널톡 플러그인 키를 입력해주세요.');
+        output.error(i18n.t('channeltalk.id_required'));
         return;
       }
 
       // 채널톡 스크립트 생성
       await this.createChanneltalkScript(cwd, pluginKey);
 
-      output.success(`채널톡 연동이 완료되었습니다. 플러그인 키: ${pluginKey}`);
+      output.success(i18n.t('channeltalk.success'));
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error';
-      output.error(`채널톡 연동 중 오류가 발생했습니다: ${errorMessage}`);
+      output.error(`${i18n.t('channeltalk.error')}: ${errorMessage}`);
     }
   }
 

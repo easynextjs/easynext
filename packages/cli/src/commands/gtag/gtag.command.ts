@@ -3,6 +3,7 @@ import { AbstractCommand } from '../abstract.command';
 import * as fs from 'fs';
 import * as path from 'path';
 import output from '../../output-manager';
+import i18n from '@/util/i18n';
 
 @Command({
   name: 'gtag',
@@ -36,24 +37,18 @@ export class GtagCommand extends AbstractCommand {
         !measurementId.trim() ||
         !measurementId.startsWith('G-')
       ) {
-        output.error(
-          '유효한 Google Analytics 측정 ID를 입력해주세요 (G-로 시작해야 합니다).',
-        );
+        output.error(i18n.t('gtag.id_required'));
         return;
       }
 
       // Google Analytics 스크립트 생성
       await this.createGoogleAnalyticsScript(cwd, measurementId);
 
-      output.success(
-        `Google Analytics(GA4) 연동이 완료되었습니다. 측정 ID: ${measurementId}`,
-      );
+      output.success(i18n.t('gtag.success'));
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error';
-      output.error(
-        `Google Analytics 연동 중 오류가 발생했습니다: ${errorMessage}`,
-      );
+      output.error(`${i18n.t('gtag.error')}: ${errorMessage}`);
     }
   }
 

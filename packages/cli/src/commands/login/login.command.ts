@@ -2,6 +2,8 @@ import { Command, CommandRunner } from 'nest-commander';
 import * as chalk from 'chalk';
 import { writeToAuthConfigFile } from '@/util/config/files';
 import { AuthConfig } from '@/global/config/auth.config';
+import i18n from '@/util/i18n';
+import output from '@/output-manager';
 
 @Command({
   name: 'login',
@@ -17,13 +19,13 @@ export class LoginCommand extends CommandRunner {
     const [token] = passedParams;
 
     if (!token) {
-      console.error(chalk.red('토큰 정보를 입력해주세요.'));
-      console.error(chalk.yellow('사용법: easynext login <token>'));
+      output.error(i18n.t('login.token_required'));
+      console.error(chalk.yellow(i18n.t('create.login_usage')));
       process.exit(1);
     }
 
     try {
-      console.log(chalk.blue('로그인 정보 확인중...'));
+      console.log(chalk.blue(i18n.t('login.token_saved')));
 
       const result = await fetch(`https://easynext.org/api/premium/cli-login`, {
         method: 'POST',
@@ -31,22 +33,20 @@ export class LoginCommand extends CommandRunner {
       }).then((res) => res.json());
 
       if (!isValidResult(result) || !result?.success || !result?.access_token) {
-        console.error(
-          chalk.red('로그인 실패:'),
-          '알 수 없는 오류가 발생했습니다.',
-        );
+        output.error(i18n.t('login.invalid_token'));
         process.exit(1);
       }
 
       writeToAuthConfigFile({ ...this.config, token: result.access_token });
 
-      console.log(chalk.green('로그인 성공!'));
+      output.success(i18n.t('login.success'));
       console.log(
         chalk.green('아래 링크를 통해 프리미엄 이용 안내를 확인해주세요.'),
       );
       console.log(chalk.green('https://easynext.org/premium/guide'));
     } catch (error) {
-      console.error(chalk.red('예상치 못한 오류가 발생했습니다:'), error);
+      output.error('예상치 못한 오류가 발생했습니다:');
+      console.error(error);
       process.exit(1);
     }
   }

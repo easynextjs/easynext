@@ -3,6 +3,7 @@ import * as path from 'path';
 import output from '../../../output-manager';
 import { install } from '@/commands/create/helpers/install';
 import { getOnline } from '@/commands/create/helpers/is-online';
+import i18n from '@/util/i18n';
 
 export async function initAuth() {
   try {
@@ -167,7 +168,7 @@ export async function initAuth() {
 
     // 패키지 설치
     const isOnline = await getOnline();
-    console.log('\n의존성 패키지 설치 중...');
+    console.log(`\n${i18n.t('create.installing')}`);
     await install('npm', isOnline);
 
     output.success(

@@ -2,6 +2,7 @@ import { Command } from 'nest-commander';
 import { AbstractCommand } from '../abstract.command';
 import { version as PACKAGE_VERSION } from '../../../package.json';
 import output from '../../output-manager';
+import i18n from '@/util/i18n';
 
 @Command({
   name: 'version',
@@ -10,6 +11,6 @@ import output from '../../output-manager';
 })
 export class VersionCommand extends AbstractCommand {
   async run(): Promise<void> {
-    output.info(`EasyNext CLI v${PACKAGE_VERSION}`);
+    output.info(`${i18n.t('version.current')} v${PACKAGE_VERSION}`);
   }
 }

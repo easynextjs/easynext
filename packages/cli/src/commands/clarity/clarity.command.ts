@@ -3,6 +3,7 @@ import { AbstractCommand } from '../abstract.command';
 import * as fs from 'fs';
 import * as path from 'path';
 import output from '../../output-manager';
+import i18n from '@/util/i18n';
 
 @Command({
   name: 'clarity',
@@ -30,22 +31,18 @@ export class ClarityCommand extends AbstractCommand {
       const clarityProjectId = await this.promptForInput();
 
       if (!clarityProjectId || !clarityProjectId.trim()) {
-        output.error('유효한 Microsoft Clarity 프로젝트 ID를 입력해주세요.');
+        output.error(i18n.t('clarity.id_required'));
         return;
       }
 
       // Microsoft Clarity 스크립트 생성
       await this.createMicrosoftClarityScript(cwd, clarityProjectId);
 
-      output.success(
-        `Microsoft Clarity 연동이 완료되었습니다. 프로젝트 ID: ${clarityProjectId}`,
-      );
+      output.success(i18n.t('clarity.success'));
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Unknown error';
-      output.error(
-        `Microsoft Clarity 연동 중 오류가 발생했습니다: ${errorMessage}`,
-      );
+      output.error(`${i18n.t('clarity.error')}: ${errorMessage}`);
     }
   }
 

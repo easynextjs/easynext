@@ -3,11 +3,12 @@ import { lt } from 'semver';
 import { execSync } from 'child_process';
 import { AbstractCommand } from '../abstract.command';
 import output from '@/output-manager';
+import i18n from '@/util/i18n';
 
 @Command({ name: 'doctor', description: 'Check the health of the system' })
 export class DoctorCommand extends AbstractCommand {
   async run() {
-    output.info('Doctor is checking the system');
+    output.info(i18n.t('doctor.checking'));
 
     this.checkNodeVersion();
     this.checkGitInstalled();
@@ -20,10 +21,12 @@ export class DoctorCommand extends AbstractCommand {
 
     if (lt(nodeVersion, requiredVersion)) {
       output.error(
-        `Node.js version ${nodeVersion} is not supported. Please upgrade to at least ${requiredVersion}.`,
+        `${i18n.t('doctor.node_version')} ${nodeVersion} is not supported. Please upgrade to at least ${requiredVersion}.`,
       );
     } else {
-      output.info(`✨ Node.js version ${nodeVersion} is supported.`);
+      output.info(
+        `✨ ${i18n.t('doctor.node_version')} ${nodeVersion} is supported.`,
+      );
     }
   }
 
@@ -31,7 +34,7 @@ export class DoctorCommand extends AbstractCommand {
     try {
       execSync('git -v', { stdio: 'ignore' });
 
-      output.info('✨ Git is installed.');
+      output.info(`✨ ${i18n.t('doctor.git_version')} is installed.`);
     } catch {
       output.error('Git is not installed. Please install Git.');
     }

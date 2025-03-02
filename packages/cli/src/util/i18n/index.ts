@@ -52,6 +52,62 @@ const resources: Record<LangCode, Record<string, string>> = {
       'The directory {0} contains files that could conflict:',
     'create.folder_conflict_solution':
       'Either try using a new directory name, or remove the files listed above.',
+
+    // Version 명령어 메시지
+    'version.current': 'Current version:',
+
+    // Login 명령어 메시지
+    'login.success': 'Login successful',
+    'login.token_saved': 'Token saved successfully',
+    'login.invalid_token': 'Invalid token',
+    'login.token_required': 'Token is required',
+
+    // Auth 명령어 메시지
+    'auth.logged_in': 'Logged in as',
+    'auth.not_logged_in': 'Not logged in',
+    'auth.logout_success': 'Logged out successfully',
+
+    // Doctor 명령어 메시지
+    'doctor.checking': 'Checking your system...',
+    'doctor.node_version': 'Node.js version:',
+    'doctor.npm_version': 'npm version:',
+    'doctor.yarn_version': 'Yarn version:',
+    'doctor.pnpm_version': 'pnpm version:',
+    'doctor.git_version': 'Git version:',
+    'doctor.os': 'Operating System:',
+    'doctor.cpu': 'CPU:',
+    'doctor.memory': 'Memory:',
+    'doctor.all_good': 'All checks passed!',
+    'doctor.issues_found': 'Issues found:',
+
+    // Supabase 명령어 메시지
+    'supabase.installing': 'Installing Supabase...',
+    'supabase.success': 'Supabase installed successfully',
+    'supabase.error': 'Error installing Supabase',
+
+    // Gtag 명령어 메시지
+    'gtag.installing': 'Installing Google Analytics (gtag)...',
+    'gtag.success': 'Google Analytics (gtag) installed successfully',
+    'gtag.error': 'Error installing Google Analytics (gtag)',
+    'gtag.id_required': 'Google Analytics ID is required',
+
+    // Clarity 명령어 메시지
+    'clarity.installing': 'Installing Microsoft Clarity...',
+    'clarity.success': 'Microsoft Clarity installed successfully',
+    'clarity.error': 'Error installing Microsoft Clarity',
+    'clarity.id_required': 'Microsoft Clarity ID is required',
+
+    // Channeltalk 명령어 메시지
+    'channeltalk.installing': 'Installing Channel Talk...',
+    'channeltalk.success': 'Channel Talk installed successfully',
+    'channeltalk.error': 'Error installing Channel Talk',
+    'channeltalk.id_required': 'Channel Talk ID is required',
+
+    // Sentry 명령어 메시지
+    'sentry.installing': 'Installing Sentry...',
+    'sentry.success': 'Sentry installed successfully',
+    'sentry.error': 'Error installing Sentry',
+    'sentry.dsn_required': 'Sentry DSN is required',
   },
   ko: {
     // 공통 메시지
@@ -98,6 +154,62 @@ const resources: Record<LangCode, Record<string, string>> = {
       '디렉토리 {0}에 충돌할 수 있는 파일이 포함되어 있습니다:',
     'create.folder_conflict_solution':
       '새 디렉토리 이름을 사용하거나 위에 나열된 파일을 제거하세요.',
+
+    // Version 명령어 메시지
+    'version.current': '현재 버전:',
+
+    // Login 명령어 메시지
+    'login.success': '로그인 성공',
+    'login.token_saved': '토큰이 성공적으로 저장되었습니다',
+    'login.invalid_token': '유효하지 않은 토큰입니다',
+    'login.token_required': '토큰이 필요합니다',
+
+    // Auth 명령어 메시지
+    'auth.logged_in': '로그인된 계정:',
+    'auth.not_logged_in': '로그인되어 있지 않습니다',
+    'auth.logout_success': '로그아웃 되었습니다',
+
+    // Doctor 명령어 메시지
+    'doctor.checking': '시스템을 확인하는 중...',
+    'doctor.node_version': 'Node.js 버전:',
+    'doctor.npm_version': 'npm 버전:',
+    'doctor.yarn_version': 'Yarn 버전:',
+    'doctor.pnpm_version': 'pnpm 버전:',
+    'doctor.git_version': 'Git 버전:',
+    'doctor.os': '운영체제:',
+    'doctor.cpu': 'CPU:',
+    'doctor.memory': '메모리:',
+    'doctor.all_good': '모든 검사가 통과되었습니다!',
+    'doctor.issues_found': '발견된 문제:',
+
+    // Supabase 명령어 메시지
+    'supabase.installing': 'Supabase 설치 중...',
+    'supabase.success': 'Supabase가 성공적으로 설치되었습니다',
+    'supabase.error': 'Supabase 설치 중 오류가 발생했습니다',
+
+    // Gtag 명령어 메시지
+    'gtag.installing': 'Google Analytics (gtag) 설치 중...',
+    'gtag.success': 'Google Analytics (gtag)가 성공적으로 설치되었습니다',
+    'gtag.error': 'Google Analytics (gtag) 설치 중 오류가 발생했습니다',
+    'gtag.id_required': 'Google Analytics ID가 필요합니다',
+
+    // Clarity 명령어 메시지
+    'clarity.installing': 'Microsoft Clarity 설치 중...',
+    'clarity.success': 'Microsoft Clarity가 성공적으로 설치되었습니다',
+    'clarity.error': 'Microsoft Clarity 설치 중 오류가 발생했습니다',
+    'clarity.id_required': 'Microsoft Clarity ID가 필요합니다',
+
+    // Channeltalk 명령어 메시지
+    'channeltalk.installing': 'Channel Talk 설치 중...',
+    'channeltalk.success': 'Channel Talk가 성공적으로 설치되었습니다',
+    'channeltalk.error': 'Channel Talk 설치 중 오류가 발생했습니다',
+    'channeltalk.id_required': 'Channel Talk ID가 필요합니다',
+
+    // Sentry 명령어 메시지
+    'sentry.installing': 'Sentry 설치 중...',
+    'sentry.success': 'Sentry가 성공적으로 설치되었습니다',
+    'sentry.error': 'Sentry 설치 중 오류가 발생했습니다',
+    'sentry.dsn_required': 'Sentry DSN이 필요합니다',
   },
 };
 

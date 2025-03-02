@@ -8,6 +8,7 @@ import { AuthCommand } from './auth/auth.command';
 import { GtagModule } from './gtag/gtag.module';
 import { ClarityModule } from './clarity/clarity.module';
 import { ChanneltalkModule } from './channeltalk/channeltalk.module';
+import { SentryModule } from './sentry/sentry.module';
 
 export const commandModules = [
   CreateModule,
@@ -20,4 +21,5 @@ export const commandModules = [
   GtagModule,
   ClarityModule,
   ChanneltalkModule,
+  SentryModule,
 ];

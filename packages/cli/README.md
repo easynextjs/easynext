@@ -64,11 +64,17 @@ $ easynext auth init
 # Set oauth provider
 $ easynext auth <'kakao' | 'idpw'>
 
-# Add Google Analytics
+# Set Up Google Analytics
 $ easynext gtag
 
-# Add Microsoft Clarity
+# Set Up Microsoft Clarity
 $ easynext clarity
+
+# Set Up ChannelTalk
+$ easynext channeltalk
+
+# Set Up Sentry
+$ easynext sentry
 ```
 
 ## Coming Soon Commands

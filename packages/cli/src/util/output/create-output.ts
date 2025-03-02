@@ -7,6 +7,7 @@ import { errorToString } from '@vercel/error-utils';
 import { removeEmoji } from '../emoji';
 import type * as tty from 'tty';
 import { inspect } from 'util';
+import i18n from '../i18n';
 
 const IS_TEST = process.env.NODE_ENV === 'test';
 
@@ -115,7 +116,7 @@ export class Output {
 
     this.print(
       chalk.yellow(
-        chalk.bold('WARN! ') +
+        chalk.bold(`${i18n.t('info.warn')} `) +
           str +
           (details ? `\n${action}: ${renderLink(details)}` : ''),
       ),
@@ -124,7 +125,7 @@ export class Output {
   };
 
   note = (str: string) => {
-    this.log(chalk`{yellow.bold NOTE:} ${str}`);
+    this.log(chalk`{yellow.bold ${i18n.t('info.note')}} ${str}`);
   };
 
   error = (
@@ -133,7 +134,7 @@ export class Output {
     link?: string,
     action = 'Learn More',
   ) => {
-    this.print(`${chalk.red(`Error:`)} ${str}\n`);
+    this.print(`${chalk.red(`${i18n.t('info.error')}`)} ${str}\n`);
     const details = slug ? `https://err.sh/vercel/${slug}` : link;
     if (details) {
       this.print(`${chalk.bold(action)}: ${renderLink(details)}\n`);
@@ -150,11 +151,11 @@ export class Output {
   };
 
   ready = (str: string) => {
-    this.print(`${chalk.cyan('> Ready!')} ${str}\n`);
+    this.print(`${chalk.cyan(`> ${i18n.t('info.ready')}`)} ${str}\n`);
   };
 
   success = (str: string) => {
-    this.print(`${chalk.cyan('> Success!')} ${str}\n`);
+    this.print(`${chalk.cyan(`> ${i18n.t('info.success')}`)} ${str}\n`);
   };
 
   debug = (debug: unknown) => {

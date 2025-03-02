@@ -10,13 +10,13 @@ import {
   defaultGlobalConfig,
 } from '@/util/config/get-default';
 import { AuthConfig } from '@/global/config/auth.config';
+import output, { updateLanguage } from '@/output-manager';
 
 const EASYNEXT_DIR = getGlobalPathConfig();
 const EASYNEXT_CONFIG_PATH = configFiles.getConfigFilePath();
 const EASYNEXT_AUTH_CONFIG_PATH = configFiles.getAuthConfigFilePath();
 
 import { Module, Provider } from '@nestjs/common';
-import output from '@/output-manager';
 
 @Module({})
 export class ConfigModule {
@@ -60,6 +60,9 @@ export class ConfigModule {
         throw err;
       }
     }
+
+    // 설정 로드 후 언어 설정 초기화
+    updateLanguage(config);
 
     let authConfig: AuthConfig;
     try {

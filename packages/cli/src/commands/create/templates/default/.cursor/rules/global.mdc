@@ -1,9 +1,11 @@
 ---
-description: Senior Next.js Developer Guidelines
-globs: *.tsx
+description: Common Guideline
+globs: 
+alwaysApply: true
 ---
 
-# Senior Next.js Developer Guidelines
+
+# Senior Developer Guidelines
 
 ## Must
 
@@ -161,10 +163,9 @@ use following libraries for specific functionalities:
 
 ## Supabase
 
-## Supabase
-
-- if you need to add new table, please show me the create query sql. I'll paste it into supabase.
-- store sql query for `.sql` file. in /database/sql/
+- if you need to add new table, please create migration. I'll paste it into supabase.
+- do not run supabase locally
+- store migration query for `.sql` file. in /supabase/migrations/
 
 ## Package Manager
 

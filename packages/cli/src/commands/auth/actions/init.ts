@@ -166,6 +166,19 @@ export async function initAuth() {
       output.warn('.cursor/rules/auth.mdc 중복');
     }
 
+    const globalRulesFilePath = path.join(
+      process.cwd(),
+      '.cursor',
+      'rules',
+      'global.mdc',
+    );
+    if (!fs.existsSync(globalRulesFilePath)) {
+      fs.ensureDirSync(path.dirname(globalRulesFilePath));
+      fs.writeFileSync(globalRulesFilePath, commonRules);
+    } else {
+      fs.appendFileSync(globalRulesFilePath, commonRules);
+    }
+
     // 패키지 설치
     const isOnline = await getOnline();
     console.log(`\n${i18n.t('create.installing')}`);
@@ -283,3 +296,8 @@ globs: src/app/api/auth/**/*.ts
 - 사용자 정의 인증 제공자를 구현하여 특별한 인증 요구 사항을 충족하세요.
 - 미들웨어를 사용하여 페이지 및 API 라우트에 대한 액세스를 제어하세요.
 `;
+
+const commonRules = `
+## Next-Auth
+
+- always use next-auth session for authenticating`;

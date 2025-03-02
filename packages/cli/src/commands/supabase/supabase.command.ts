@@ -3,7 +3,6 @@ import { AbstractCommand } from '../abstract.command';
 import { initSupabase } from './actions/init';
 import output from '@/output-manager';
 import { assertRoot } from '@/util/check-root';
-import i18n from '@/util/i18n';
 
 @Command({
   name: 'supabase',

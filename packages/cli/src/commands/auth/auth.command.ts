@@ -4,7 +4,6 @@ import { initAuth } from './actions/init';
 import { addIdpw } from './actions/idpw';
 import { addKakao } from './actions/kakao';
 import { assertRoot } from '@/util/check-root';
-import i18n from '@/util/i18n';
 
 @Command({
   name: 'auth',

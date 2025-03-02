@@ -18,7 +18,7 @@ export class GtagCommand extends AbstractCommand {
       const cwd = process.cwd();
 
       // app 디렉토리 확인
-      const appDir = path.join(cwd, 'app');
+      const appDir = path.join(cwd, 'src', 'app');
       if (!fs.existsSync(appDir)) {
         output.error(
           'Next.js app 디렉토리를 찾을 수 없습니다. Next.js 프로젝트 루트 디렉토리에서 실행해주세요.',
@@ -69,7 +69,7 @@ export class GtagCommand extends AbstractCommand {
     measurementId: string,
   ): Promise<void> {
     // 1. app 디렉토리에 gtag.js 파일 생성
-    const gtagFilePath = path.join(cwd, 'app', 'gtag.ts');
+    const gtagFilePath = path.join(cwd, 'src', 'app', 'gtag.ts');
     const gtagContent = `'use client';
 
 export const GA_MEASUREMENT_ID = '${measurementId}';
@@ -99,8 +99,8 @@ export const event = ({ action, category, label, value }: { action: string, cate
     output.info(`✅ app/gtag.js 파일이 생성되었습니다.`);
 
     // 2. app/layout.js 또는 app/layout.tsx 파일 수정
-    const layoutTsxPath = path.join(cwd, 'app', 'layout.tsx');
-    const layoutJsPath = path.join(cwd, 'app', 'layout.js');
+    const layoutTsxPath = path.join(cwd, 'src', 'app', 'layout.tsx');
+    const layoutJsPath = path.join(cwd, 'src', 'app', 'layout.js');
 
     let layoutPath;
     if (fs.existsSync(layoutTsxPath)) {
@@ -109,7 +109,7 @@ export const event = ({ action, category, label, value }: { action: string, cate
       layoutPath = layoutJsPath;
     } else {
       output.error(
-        'app/layout.tsx 또는 app/layout.js 파일을 찾을 수 없습니다.',
+        'src/app/layout.tsx 또는 src/app/layout.js 파일을 찾을 수 없습니다.',
       );
       return;
     }

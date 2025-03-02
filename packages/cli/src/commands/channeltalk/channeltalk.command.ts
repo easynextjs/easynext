@@ -17,7 +17,7 @@ export class ChanneltalkCommand extends AbstractCommand {
       const cwd = process.cwd();
 
       // app 디렉토리 확인
-      const appDir = path.join(cwd, 'app');
+      const appDir = path.join(cwd, 'src', 'app');
       if (!fs.existsSync(appDir)) {
         output.error(
           'Next.js app 디렉토리를 찾을 수 없습니다. Next.js 프로젝트 루트 디렉토리에서 실행해주세요.',
@@ -62,7 +62,7 @@ export class ChanneltalkCommand extends AbstractCommand {
     pluginKey: string,
   ): Promise<void> {
     // 1. app 디렉토리에 channeltalk.ts 파일 생성
-    const channeltalkFilePath = path.join(cwd, 'app', 'channeltalk.ts');
+    const channeltalkFilePath = path.join(cwd, 'src', 'app', 'channeltalk.ts');
     const channeltalkContent = `'use client';
 
 // 채널톡 타입 정의
@@ -195,8 +195,8 @@ export const channelTalk = (): ChannelIOApiMethods | undefined => {
     output.info(`✅ app/channeltalk.ts 파일이 생성되었습니다.`);
 
     // 2. app/layout.js 또는 app/layout.tsx 파일 수정
-    const layoutTsxPath = path.join(cwd, 'app', 'layout.tsx');
-    const layoutJsPath = path.join(cwd, 'app', 'layout.js');
+    const layoutTsxPath = path.join(cwd, 'src', 'app', 'layout.tsx');
+    const layoutJsPath = path.join(cwd, 'src', 'app', 'layout.js');
 
     let layoutPath;
     if (fs.existsSync(layoutTsxPath)) {
@@ -205,7 +205,7 @@ export const channelTalk = (): ChannelIOApiMethods | undefined => {
       layoutPath = layoutJsPath;
     } else {
       output.error(
-        'app/layout.tsx 또는 app/layout.js 파일을 찾을 수 없습니다.',
+        'src/app/layout.tsx 또는 src/app/layout.js 파일을 찾을 수 없습니다.',
       );
       return;
     }
@@ -214,7 +214,7 @@ export const channelTalk = (): ChannelIOApiMethods | undefined => {
     let layoutContent = fs.readFileSync(layoutPath, 'utf8');
 
     // 3. ChannelTalk 초기화 컴포넌트 생성
-    const channelTalkComponentPath = path.join(cwd, 'app', 'components');
+    const channelTalkComponentPath = path.join(cwd, 'src', 'app', 'components');
 
     // components 디렉토리가 없으면 생성
     if (!fs.existsSync(channelTalkComponentPath)) {

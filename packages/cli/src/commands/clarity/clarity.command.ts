@@ -18,7 +18,7 @@ export class ClarityCommand extends AbstractCommand {
       const cwd = process.cwd();
 
       // app 디렉토리 확인
-      const appDir = path.join(cwd, 'app');
+      const appDir = path.join(cwd, 'src', 'app');
       if (!fs.existsSync(appDir)) {
         output.error(
           'Next.js app 디렉토리를 찾을 수 없습니다. Next.js 프로젝트 루트 디렉토리에서 실행해주세요.',
@@ -63,7 +63,7 @@ export class ClarityCommand extends AbstractCommand {
     clarityProjectId: string,
   ): Promise<void> {
     // 1. app 디렉토리에 clarity.ts 파일 생성
-    const clarityFilePath = path.join(cwd, 'app', 'clarity.ts');
+    const clarityFilePath = path.join(cwd, 'src', 'app', 'clarity.ts');
     const clarityContent = `'use client';
 
 export const CLARITY_PROJECT_ID = '${clarityProjectId}';
@@ -80,8 +80,8 @@ export const initClarity = () => {
     output.info(`✅ app/clarity.ts 파일이 생성되었습니다.`);
 
     // 2. app/layout.js 또는 app/layout.tsx 파일 수정
-    const layoutTsxPath = path.join(cwd, 'app', 'layout.tsx');
-    const layoutJsPath = path.join(cwd, 'app', 'layout.js');
+    const layoutTsxPath = path.join(cwd, 'src', 'app', 'layout.tsx');
+    const layoutJsPath = path.join(cwd, 'src', 'app', 'layout.js');
 
     let layoutPath;
     if (fs.existsSync(layoutTsxPath)) {
@@ -90,7 +90,7 @@ export const initClarity = () => {
       layoutPath = layoutJsPath;
     } else {
       output.error(
-        'app/layout.tsx 또는 app/layout.js 파일을 찾을 수 없습니다.',
+        'src/app/layout.tsx 또는 src/app/layout.js 파일을 찾을 수 없습니다.',
       );
       return;
     }
@@ -152,7 +152,7 @@ export const initClarity = () => {
     output.info(`✅ ${path.basename(layoutPath)} 파일이 수정되었습니다.`);
 
     // 3. types/global.d.ts 파일 생성 또는 수정
-    const typesDir = path.join(cwd, 'types');
+    const typesDir = path.join(cwd, 'src', 'types');
     if (!fs.existsSync(typesDir)) {
       fs.mkdirSync(typesDir, { recursive: true });
     }

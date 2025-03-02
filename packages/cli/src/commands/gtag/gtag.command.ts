@@ -1,9 +1,11 @@
 import { Command } from 'nest-commander';
 import { AbstractCommand } from '../abstract.command';
-import * as fs from 'fs';
+import * as fs from 'fs-extra';
 import * as path from 'path';
 import output from '../../output-manager';
 import i18n from '@/util/i18n';
+import { install } from '../create/helpers/install';
+import { getOnline } from '../create/helpers/is-online';
 
 @Command({
   name: 'gtag',
@@ -120,37 +122,42 @@ export const event = ({ action, category, label, value }: { action: string, cate
     // Google Analytics 스크립트 추가
     const gaScriptContent = `
   {/* Google Analytics */}
-  <Script
-    strategy="afterInteractive"
-    src={\`https://www.googletagmanager.com/gtag/js?id=\${GA_MEASUREMENT_ID}\`}
-  />
-  <Script
-    id="gtag-init"
-    strategy="afterInteractive"
-    dangerouslySetInnerHTML={{
-      __html: \`
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '\${GA_MEASUREMENT_ID}', {
-          page_path: window.location.pathname,
-        });
-      \`,
-    }}
-  />`;
+  <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />`;
 
     // import 문 추가
-    if (!layoutContent.includes("import Script from 'next/script'")) {
+    if (
+      !layoutContent.includes(
+        "import { GoogleAnalytics } from '@next/third-parties/google'",
+      )
+    ) {
       layoutContent = layoutContent.replace(
         /import/,
-        "import Script from 'next/script';\nimport { GA_MEASUREMENT_ID } from './gtag';\nimport",
+        "import { GoogleAnalytics } from '@next/third-parties/google'\nimport { GA_MEASUREMENT_ID } from './gtag';\nimport",
       );
     } else if (!layoutContent.includes('import { GA_MEASUREMENT_ID }')) {
       layoutContent = layoutContent.replace(
-        /import Script from 'next\/script'/,
-        "import Script from 'next/script';\nimport { GA_MEASUREMENT_ID } from './gtag'",
+        /import { GoogleAnalytics } from '@next\/third-parties\/google'/,
+        "import { GoogleAnalytics } from '@next/third-parties/google';\nimport { GA_MEASUREMENT_ID } from './gtag'",
       );
     }
+
+    const packageJsonPath = path.join(process.cwd(), 'package.json');
+
+    // @next/third-parties 패키지 추가
+    const packageJson = fs.readJsonSync(packageJsonPath);
+    if (!packageJson.dependencies) {
+      packageJson.dependencies = {};
+    }
+
+    if (!packageJson.dependencies['@next/third-parties']) {
+      packageJson.dependencies['@next/third-parties'] = '15.2.0';
+      fs.writeJsonSync(packageJsonPath, packageJson, { spaces: 2 });
+    } else {
+      output.warn('@next/third-parties 패키지 중복');
+    }
+
+    const isOnline = await getOnline();
+    await install('npm', isOnline);
 
     // body 태그 내에 스크립트 추가
     if (layoutContent.includes('</head>')) {

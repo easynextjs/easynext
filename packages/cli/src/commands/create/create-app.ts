@@ -6,6 +6,7 @@ import { tryGitInit } from './helpers/git';
 import { isFolderEmpty } from './helpers/is-folder-empty';
 import { getOnline } from './helpers/is-online';
 import { isWriteable } from './helpers/is-writeable';
+import i18n from '@/util/i18n';
 
 import type { TemplateType } from './templates';
 import { installTemplate } from './templates';
@@ -30,12 +31,8 @@ export async function createApp({
   const root = resolve(appPath);
 
   if (!(await isWriteable(dirname(root)))) {
-    console.error(
-      'The application path is not writable, please check folder permissions and try again.',
-    );
-    console.error(
-      'It is likely you do not have write permissions for this folder.',
-    );
+    console.error(i18n.t('create.not_writable'));
+    console.error(i18n.t('create.no_permissions'));
     process.exit(1);
   }
 
@@ -50,7 +47,7 @@ export async function createApp({
   const isOnline = !useYarn || (await getOnline());
   const originalDirectory = process.cwd();
 
-  console.log(`Creating a new Next.js app in ${green(root)}.`);
+  console.log(`${i18n.t('create.creating_app')} ${green(root)}.`);
   console.log();
 
   process.chdir(root);
@@ -68,10 +65,10 @@ export async function createApp({
   });
 
   if (disableGit) {
-    console.log('Skipping git initialization.');
+    console.log(i18n.t('create.skip_git'));
     console.log();
   } else if (tryGitInit(root)) {
-    console.log('Initialized a git repository.');
+    console.log(i18n.t('create.git_initialized'));
     console.log();
   }
 
@@ -82,21 +79,23 @@ export async function createApp({
     cdpath = appPath;
   }
 
-  console.log(`${green('Success!')} Created ${appName} at ${appPath}`);
+  console.log(
+    `${green(i18n.t('info.success'))} ${i18n.t('create.success_created')} ${appName} ${i18n.t('create.success_at')} ${appPath}`,
+  );
 
   if (hasPackageJson) {
-    console.log('Inside that directory, you can run several commands:');
+    console.log(i18n.t('create.run_commands'));
     console.log();
     console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}dev`));
-    console.log('    Starts the development server.');
+    console.log(`    ${i18n.t('create.run_dev')}`);
     console.log();
     console.log(cyan(`  ${packageManager} ${useYarn ? '' : 'run '}build`));
-    console.log('    Builds the app for production.');
+    console.log(`    ${i18n.t('create.run_build')}`);
     console.log();
     console.log(cyan(`  ${packageManager} start`));
-    console.log('    Runs the built app in production mode.');
+    console.log(`    ${i18n.t('create.run_start')}`);
     console.log();
-    console.log('We suggest that you begin by typing:');
+    console.log(i18n.t('create.suggest_begin'));
     console.log();
     console.log(cyan('  cd'), cdpath);
     console.log(`  ${cyan(`${packageManager} ${useYarn ? '' : 'run '}dev`)}`);

@@ -1,6 +1,7 @@
 import { lstatSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { green, blue } from 'chalk';
+import i18n from '@/util/i18n';
 
 export function isFolderEmpty(root: string, name: string): boolean {
   const validFiles = [
@@ -34,9 +35,7 @@ export function isFolderEmpty(root: string, name: string): boolean {
   );
 
   if (conflicts.length > 0) {
-    console.log(
-      `The directory ${green(name)} contains files that could conflict:`,
-    );
+    console.log(i18n.t('create.folder_conflict', green(name)));
     console.log();
     for (const file of conflicts) {
       try {
@@ -51,9 +50,7 @@ export function isFolderEmpty(root: string, name: string): boolean {
       }
     }
     console.log();
-    console.log(
-      'Either try using a new directory name, or remove the files listed above.',
-    );
+    console.log(i18n.t('create.folder_conflict_solution'));
     console.log();
     return false;
   }

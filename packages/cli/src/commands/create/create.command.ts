@@ -17,6 +17,7 @@ import { join } from 'path';
 import AdmZip from 'adm-zip';
 import { isFolderEmpty } from './helpers/is-folder-empty';
 import { mkdirSync } from 'fs';
+import i18n from '@/util/i18n';
 
 interface CreateCommandOptions {
   template?: string;
@@ -44,9 +45,9 @@ export class CreateCommand extends AbstractCommand {
     const validation = validateNpmName(appName);
     if (validation.valid === false) {
       output.error(
-        `Could not create a project called ${chalk.red(
+        `${i18n.t('create.npm_naming_error')} ${chalk.red(
           `"${appName}"`,
-        )} because of npm naming restrictions:`,
+        )} ${i18n.t('create.npm_naming_restrictions')}`,
       );
 
       validation.problems.forEach((p) =>
@@ -65,7 +66,7 @@ export class CreateCommand extends AbstractCommand {
         disableGit: false,
       });
 
-      output.success('Project created successfully');
+      output.success(i18n.t('create.success'));
 
       return;
     }
@@ -75,8 +76,8 @@ export class CreateCommand extends AbstractCommand {
     const token = this.config.token;
 
     if (!token) {
-      console.error('Error: 로그인이 필요합니다. 로그인해주세요.');
-      console.error(chalk.yellow('사용법: easynext login <token>'));
+      console.error(i18n.t('create.login_required'));
+      console.error(chalk.yellow(i18n.t('create.login_usage')));
       process.exit(1);
     }
 
@@ -93,12 +94,12 @@ export class CreateCommand extends AbstractCommand {
     ).then((res) => res.json());
 
     if (!isValidResult(result) || !result?.success || !result?.download_url) {
-      console.error('Error: 템플릿 다운로드 중 오류가 발생했습니다.');
-      console.error(chalk.yellow('안내: https://easynext.org/premium/guide'));
+      console.error(i18n.t('create.template_error'));
+      console.error(chalk.yellow(i18n.t('create.template_guide')));
       process.exit(1);
     }
 
-    console.log(`Downloading template from ${result.download_url}`);
+    console.log(`${i18n.t('create.downloading')} ${result.download_url}`);
 
     // 4. 템플릿 다운로드
     try {
@@ -130,7 +131,7 @@ export class CreateCommand extends AbstractCommand {
             cwd: root,
           });
         } catch {
-          throw new Error('지원하지 않는 템플릿 파일 형식입니다.');
+          throw new Error(i18n.t('create.unsupported_format'));
         }
       }
 
@@ -140,15 +141,15 @@ export class CreateCommand extends AbstractCommand {
       const packageManager = getPkgManager();
       const isOnline = await getOnline();
 
-      console.log(`Installing dependencies...`);
+      console.log(i18n.t('create.installing'));
 
       await install(packageManager, isOnline);
 
       output.success(
-        `템플릿이 성공적으로 설치되었습니다. ${chalk.green(appName)}`,
+        `${i18n.t('create.template_success')} ${chalk.green(appName)}`,
       );
     } catch (error) {
-      console.error('Error: 템플릿 다운로드 중 오류가 발생했습니다.');
+      console.error(i18n.t('create.template_error'));
       console.error(error);
       process.exit(1);
     }

@@ -9,6 +9,7 @@ import { GtagModule } from './gtag/gtag.module';
 import { ClarityModule } from './clarity/clarity.module';
 import { ChanneltalkModule } from './channeltalk/channeltalk.module';
 import { SentryModule } from './sentry/sentry.module';
+import { I18nModule } from './i18n/i18n.module';
 
 export const commandModules = [
   CreateModule,
@@ -22,4 +23,5 @@ export const commandModules = [
   ClarityModule,
   ChanneltalkModule,
   SentryModule,
+  I18nModule,
 ];

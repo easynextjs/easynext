@@ -108,6 +108,15 @@ const resources: Record<LangCode, Record<string, string>> = {
     'sentry.success': 'Sentry installed successfully',
     'sentry.error': 'Error installing Sentry',
     'sentry.dsn_required': 'Sentry DSN is required',
+
+    // i18n 명령어 메시지
+    'i18n.setup_start': 'Setting up i18n for Next.js...',
+    'i18n.no_app_dir':
+      'No app directory found. Please run this command in a Next.js project.',
+    'i18n.setup_complete': 'i18n setup completed successfully',
+    'i18n.config_created': 'Next.js i18n config created',
+    'i18n.language_files_created': 'Language files created',
+    'i18n.page_updated': 'Home page updated with language switcher',
   },
   ko: {
     // 공통 메시지
@@ -210,6 +219,15 @@ const resources: Record<LangCode, Record<string, string>> = {
     'sentry.success': 'Sentry가 성공적으로 설치되었습니다',
     'sentry.error': 'Sentry 설치 중 오류가 발생했습니다',
     'sentry.dsn_required': 'Sentry DSN이 필요합니다',
+
+    // i18n 명령어 메시지
+    'i18n.setup_start': 'Next.js i18n 설정을 시작합니다...',
+    'i18n.no_app_dir':
+      'app 디렉토리를 찾을 수 없습니다. Next.js 프로젝트에서 실행해주세요.',
+    'i18n.setup_complete': 'i18n 설정이 성공적으로 완료되었습니다',
+    'i18n.config_created': 'Next.js i18n 설정 파일이 생성되었습니다',
+    'i18n.language_files_created': '언어 파일이 생성되었습니다',
+    'i18n.page_updated': '홈 페이지에 언어 변경 버튼이 추가되었습니다',
   },
 };
 

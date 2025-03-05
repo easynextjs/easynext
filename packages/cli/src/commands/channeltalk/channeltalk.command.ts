@@ -61,138 +61,40 @@ export class ChanneltalkCommand extends AbstractCommand {
     cwd: string,
     pluginKey: string,
   ): Promise<void> {
-    // 1. app 디렉토리에 channeltalk.ts 파일 생성
-    const channeltalkFilePath = path.join(cwd, 'src', 'app', 'channeltalk.ts');
-    const channeltalkContent = `'use client';
-
-// 채널톡 타입 정의
-declare global {
-  interface Window {
-    ChannelIO?: {
-      c?: (...args: any[]) => void;
-      q?: any[];
-      boot?: (settings: ChannelIOBootSettings) => void;
-    };
-    ChannelIOInitialized?: boolean;
-  }
-}
-
-export interface ChannelIOBootSettings {
-  pluginKey: string;
-  memberId?: string;
-  profile?: {
-    name?: string;
-    email?: string;
-    mobileNumber?: string;
-    avatarUrl?: string;
-    [key: string]: any;
-  };
-  trackDefaultEvent?: boolean;
-  hideChannelButtonOnBoot?: boolean;
-  language?: string;
-  zIndex?: number;
-  [key: string]: any;
-}
-
-export interface ChannelIOApiMethods {
-  shutdown: () => void;
-  showMessenger: () => void;
-  hideMessenger: () => void;
-  openChat: (chatId?: string | number, message?: string) => void;
-  track: (eventName: string, eventProperty?: object) => void;
-  onShowMessenger: (callback: () => void) => void;
-  onHideMessenger: (callback: () => void) => void;
-  onBadgeChanged: (callback: (unread: number) => void) => void;
-  onChatCreated: (callback: (chatId: string | number) => void) => void;
-  onFollowUpChanged: (callback: (followUp: boolean) => void) => void;
-  onUrlClicked: (callback: (url: string) => void) => void;
-  clearCallbacks: () => void;
-  updateUser: (userInfo: { [key: string]: any }) => void;
-  addTags: (tags: string[]) => void;
-  removeTags: (tags: string[]) => void;
-  setPage: (page: string) => void;
-  resetPage: () => void;
-  showChannelButton: () => void;
-  hideChannelButton: () => void;
-}
-
-// 채널톡 플러그인 키
-export const CHANNEL_PLUGIN_KEY = '${pluginKey}';
-
-// 채널톡 초기화
-export const bootChannelTalk = (settings?: Partial<ChannelIOBootSettings>) => {
-  if (typeof window === 'undefined') return;
-
-  // 이미 초기화된 경우 중복 실행 방지
-  if (window.ChannelIOInitialized) return;
-
-  const channelSettings: ChannelIOBootSettings = {
-    pluginKey: CHANNEL_PLUGIN_KEY,
-    ...settings,
-  };
-
-  const loadChannelIO = () => {
-    if (window.ChannelIO) {
-      window.ChannelIO.boot(channelSettings);
-    } else {
-      window.ChannelIO = {
-        c: (...args: any[]) => {
-          (window.ChannelIO?.q || []).push(args);
-        },
-        q: [],
-      };
-      
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-      const firstScript = document.getElementsByTagName('script')[0];
-      if (firstScript && firstScript.parentNode) {
-        firstScript.parentNode.insertBefore(script, firstScript);
-      }
+    // 1. src/third-parties 디렉토리에 Clarity.tsx 파일 생성
+    const thirdPartiesDir = path.join(cwd, 'src', 'third-parties');
+    if (!fs.existsSync(thirdPartiesDir)) {
+      fs.mkdirSync(thirdPartiesDir, { recursive: true });
     }
-    
-    window.ChannelIOInitialized = true;
-  };
 
-  if (document.readyState === 'complete') {
-    loadChannelIO();
-  } else {
-    window.addEventListener('DOMContentLoaded', loadChannelIO);
-    window.addEventListener('load', loadChannelIO);
-  }
-};
+    const channelioFilePath = path.join(thirdPartiesDir, 'Channelio.tsx');
+    const channelioContent = `"use client";
 
-// 채널톡 API 호출 함수
-export const channelTalk = (): ChannelIOApiMethods | undefined => {
-  if (typeof window === 'undefined' || !window.ChannelIO) return undefined;
+import Script from "next/script";
 
-  return {
-    shutdown: () => window.ChannelIO?.c?.('shutdown'),
-    showMessenger: () => window.ChannelIO?.c?.('showMessenger'),
-    hideMessenger: () => window.ChannelIO?.c?.('hideMessenger'),
-    openChat: (chatId, message) => window.ChannelIO?.c?.('openChat', chatId, message),
-    track: (eventName, eventProperty) => window.ChannelIO?.c?.('track', eventName, eventProperty),
-    onShowMessenger: (callback) => window.ChannelIO?.c?.('onShowMessenger', callback),
-    onHideMessenger: (callback) => window.ChannelIO?.c?.('onHideMessenger', callback),
-    onBadgeChanged: (callback) => window.ChannelIO?.c?.('onBadgeChanged', callback),
-    onChatCreated: (callback) => window.ChannelIO?.c?.('onChatCreated', callback),
-    onFollowUpChanged: (callback) => window.ChannelIO?.c?.('onFollowUpChanged', callback),
-    onUrlClicked: (callback) => window.ChannelIO?.c?.('onUrlClicked', callback),
-    clearCallbacks: () => window.ChannelIO?.c?.('clearCallbacks'),
-    updateUser: (userInfo) => window.ChannelIO?.c?.('updateUser', userInfo),
-    addTags: (tags) => window.ChannelIO?.c?.('addTags', tags),
-    removeTags: (tags) => window.ChannelIO?.c?.('removeTags', tags),
-    setPage: (page) => window.ChannelIO?.c?.('setPage', page),
-    resetPage: () => window.ChannelIO?.c?.('resetPage'),
-    showChannelButton: () => window.ChannelIO?.c?.('showChannelButton'),
-    hideChannelButton: () => window.ChannelIO?.c?.('hideChannelButton'),
-  };
-};
+export function ChannelIO() {
+  return (
+    <Script
+      id="channel-io"
+      strategy="afterInteractive"
+      dangerouslySetInnerHTML={{
+        __html: \`
+        
+  (function(){var w=window;if(w.ChannelIO){return w.console.error("ChannelIO script included twice.");}var ch=function(){ch.c(arguments);};ch.q=[];ch.c=function(args){ch.q.push(args);};w.ChannelIO=ch;function l(){if(w.ChannelIOInitialized){return;}w.ChannelIOInitialized=true;var s=document.createElement("script");s.type="text/javascript";s.async=true;s.src="https://cdn.channel.io/plugin/ch-plugin-web.js";var x=document.getElementsByTagName("script")[0];if(x.parentNode){x.parentNode.insertBefore(s,x);}}if(document.readyState==="complete"){l();}else{w.addEventListener("DOMContentLoaded",l);w.addEventListener("load",l);}})();
+
+  ChannelIO('boot', {
+  "pluginKey": "${pluginKey}"
+});
+        \`,
+      }}
+    ></Script>
+  );
+}
+
 `;
 
-    fs.writeFileSync(channeltalkFilePath, channeltalkContent);
-    output.info(`✅ app/channeltalk.ts 파일이 생성되었습니다.`);
+    fs.writeFileSync(channelioFilePath, channelioContent);
+    output.info(`✅ src/third-parties/Channelio.tsx 파일이 생성되었습니다.`);
 
     // 2. app/layout.js 또는 app/layout.tsx 파일 수정
     const layoutTsxPath = path.join(cwd, 'src', 'app', 'layout.tsx');
@@ -213,49 +115,8 @@ export const channelTalk = (): ChannelIOApiMethods | undefined => {
     // 레이아웃 파일 읽기
     let layoutContent = fs.readFileSync(layoutPath, 'utf8');
 
-    // 3. ChannelTalk 초기화 컴포넌트 생성
-    const channelTalkComponentPath = path.join(cwd, 'src', 'app', 'components');
-
-    // components 디렉토리가 없으면 생성
-    if (!fs.existsSync(channelTalkComponentPath)) {
-      fs.mkdirSync(channelTalkComponentPath, { recursive: true });
-    }
-
-    const channelTalkComponentFilePath = path.join(
-      channelTalkComponentPath,
-      'ChannelTalk.tsx',
-    );
-    const channelTalkComponentContent = `'use client';
-
-import { useEffect } from 'react';
-import { bootChannelTalk } from '../channeltalk';
-
-interface ChannelTalkProps {
-  memberId?: string;
-  profile?: {
-    name?: string;
-    email?: string;
-    [key: string]: any;
-  };
-}
-
-export default function ChannelTalk({ memberId, profile }: ChannelTalkProps) {
-  useEffect(() => {
-    bootChannelTalk({
-      memberId,
-      profile,
-    });
-  }, [memberId, profile]);
-
-  return null;
-}
-`;
-
-    fs.writeFileSync(channelTalkComponentFilePath, channelTalkComponentContent);
-    output.info(`✅ app/components/ChannelTalk.tsx 파일이 생성되었습니다.`);
-
     // 4. layout 파일에 ChannelTalk 컴포넌트 추가
-    if (!layoutContent.includes('import ChannelTalk from')) {
+    if (!layoutContent.includes('import { ChannelIO } from')) {
       // RootLayout 컴포넌트 찾기
       const rootLayoutRegex =
         /export\s+(?:default\s+)?(?:function\s+)?(?:const\s+)?RootLayout\s*(?:=\s*)?(?:\([^)]*\)\s*(?:=>)?\s*)?{/;
@@ -265,7 +126,7 @@ export default function ChannelTalk({ memberId, profile }: ChannelTalkProps) {
         // import 문 추가
         layoutContent = layoutContent.replace(
           /import/,
-          "import ChannelTalk from './components/ChannelTalk';\nimport",
+          "import ChannelIO from '@/third-parties/Channelio';\nimport",
         );
 
         // return 문 찾기
@@ -275,82 +136,25 @@ export default function ChannelTalk({ memberId, profile }: ChannelTalkProps) {
         if (returnMatch) {
           const returnIndex = returnMatch.index + returnMatch[0].length;
 
-          // return 문 다음에 ChannelTalk 컴포넌트 추가
+          // return 문 다음에 ChannelIO 컴포넌트 추가
           layoutContent =
             layoutContent.slice(0, returnIndex) +
-            '\n      <ChannelTalk />' +
+            '\n      <ChannelIO />' +
             layoutContent.slice(returnIndex);
         } else {
           output.warn(
-            'layout 파일에서 return 문을 찾을 수 없습니다. 수동으로 ChannelTalk 컴포넌트를 추가해주세요.',
+            'layout 파일에서 return 문을 찾을 수 없습니다. 수동으로 ChannelIO 컴포넌트를 추가해주세요.',
           );
         }
       } else {
         output.warn(
-          'layout 파일에서 RootLayout 컴포넌트를 찾을 수 없습니다. 수동으로 ChannelTalk 컴포넌트를 추가해주세요.',
+          'layout 파일에서 RootLayout 컴포넌트를 찾을 수 없습니다. 수동으로 ChannelIO 컴포넌트를 추가해주세요.',
         );
       }
 
       // 수정된 레이아웃 파일 저장
       fs.writeFileSync(layoutPath, layoutContent);
       output.info(`✅ ${path.basename(layoutPath)} 파일이 수정되었습니다.`);
-    }
-
-    // 5. README.md 파일에 사용법 추가
-    const readmePath = path.join(cwd, 'README.md');
-    if (fs.existsSync(readmePath)) {
-      let readmeContent = fs.readFileSync(readmePath, 'utf8');
-
-      const channelTalkUsageContent = `
-## 채널톡 사용법
-
-이 프로젝트는 채널톡이 설정되어 있습니다. 플러그인 키: \`${pluginKey}\`
-
-### 기본 설정
-채널톡은 자동으로 초기화됩니다.
-
-### 사용자 정보 설정
-사용자 정보를 설정하려면 다음과 같이 사용하세요:
-
-\`\`\`jsx
-// 페이지 또는 컴포넌트에서
-import ChannelTalk from './app/components/ChannelTalk';
-
-// 사용자 정보와 함께 렌더링
-<ChannelTalk 
-  memberId="사용자ID" 
-  profile={{
-    name: "사용자 이름",
-    email: "user@example.com"
-  }} 
-/>
-\`\`\`
-
-### 채널톡 API 사용
-채널톡 API를 사용하려면 다음과 같이 사용하세요:
-
-\`\`\`javascript
-import { channelTalk } from './app/channeltalk';
-
-// 채팅창 열기
-channelTalk()?.showMessenger();
-
-// 이벤트 추적
-channelTalk()?.track('button_click', { 
-  name: '로그인_버튼' 
-});
-
-// 사용자 정보 업데이트
-channelTalk()?.updateUser({
-  name: '홍길동',
-  email: 'user@example.com'
-});
-\`\`\`
-`;
-
-      readmeContent += channelTalkUsageContent;
-      fs.writeFileSync(readmePath, readmeContent);
-      output.info('✅ README.md 파일에 채널톡 사용법이 추가되었습니다.');
     }
   }
 }

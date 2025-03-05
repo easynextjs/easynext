@@ -6,11 +6,11 @@ import output from '../../output-manager';
 import i18n from '@/util/i18n';
 
 @Command({
-  name: 'channeltalk',
+  name: 'channelio',
   description: '채널톡 서비스 연동 코드를 Next.js 프로젝트에 추가합니다',
-  aliases: ['channel'],
+  aliases: ['channel', 'channeltalk'],
 })
-export class ChanneltalkCommand extends AbstractCommand {
+export class ChannelIOCommand extends AbstractCommand {
   async run(): Promise<void> {
     try {
       // 현재 작업 디렉토리

@@ -7,7 +7,7 @@ import { SupabaseModule } from './supabase/supabase.module';
 import { AuthCommand } from './auth/auth.command';
 import { GtagModule } from './gtag/gtag.module';
 import { ClarityModule } from './clarity/clarity.module';
-import { ChanneltalkModule } from './channeltalk/channeltalk.module';
+import { ChannelIOodule } from './channelio/channelio.module';
 import { SentryModule } from './sentry/sentry.module';
 import { I18nModule } from './i18n/i18n.module';
 
@@ -21,7 +21,7 @@ export const commandModules = [
   AuthCommand,
   GtagModule,
   ClarityModule,
-  ChanneltalkModule,
+  ChannelIOodule,
   SentryModule,
   I18nModule,
 ];

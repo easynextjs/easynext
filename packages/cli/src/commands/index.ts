@@ -10,6 +10,7 @@ import { ClarityModule } from './clarity/clarity.module';
 import { ChannelIOodule } from './channelio/channelio.module';
 import { SentryModule } from './sentry/sentry.module';
 import { I18nModule } from './i18n/i18n.module';
+import { SitemapModule } from './sitemap/sitemap.module';
 
 export const commandModules = [
   CreateModule,
@@ -24,4 +25,5 @@ export const commandModules = [
   ChannelIOodule,
   SentryModule,
   I18nModule,
+  SitemapModule,
 ];

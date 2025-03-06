@@ -19,7 +19,7 @@ export class I18nCommand extends AbstractCommand {
     output.info(i18n.t('i18n.setup_start'));
 
     // 1. app 디렉토리 확인 및 생성
-    const appDir = join(process.cwd(), 'app');
+    const appDir = join(process.cwd(), 'src', 'app');
     if (!existsSync(appDir)) {
       output.error(i18n.t('i18n.no_app_dir'));
       return;
@@ -32,7 +32,7 @@ export class I18nCommand extends AbstractCommand {
     this.createLanguageFiles();
 
     // 4. 예시 페이지 수정
-    this.updateHomePage();
+    this.createI18NPage();
 
     output.success(i18n.t('i18n.setup_complete'));
   }
@@ -71,7 +71,7 @@ module.exports = nextConfig
 
   private createLanguageFiles() {
     // 언어 파일 디렉토리 생성
-    const localesDir = join(process.cwd(), 'locales');
+    const localesDir = join(process.cwd(), 'src', 'locales');
     if (!existsSync(localesDir)) {
       mkdirSync(localesDir);
     }
@@ -117,8 +117,8 @@ module.exports = nextConfig
     output.success(i18n.t('i18n.language_files_created'));
   }
 
-  private updateHomePage() {
-    const pageFilePath = join(process.cwd(), 'app', 'page.tsx');
+  private createI18NPage() {
+    const pageFilePath = join(process.cwd(), 'src', 'app', 'i18n', 'page.tsx');
 
     const pageContent = `'use client';
 
@@ -127,7 +127,7 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function Home() {
+export default function I18NPage() {
   const router = useRouter();
   const { t } = useTranslation('common');
   const [locale, setLocale] = useState('');

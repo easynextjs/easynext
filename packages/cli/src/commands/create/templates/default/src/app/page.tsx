@@ -7,7 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import axios from 'axios';
 
 const PACKAGE_NAME = '@easynext/cli';
-const CURRENT_VERSION = 'v0.1.24';
+const CURRENT_VERSION = 'v0.1.32';
 
 function latestVersion(packageName: string) {
   return axios

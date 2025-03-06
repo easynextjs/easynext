@@ -11,6 +11,7 @@ import { ChannelIOodule } from './channelio/channelio.module';
 import { SentryModule } from './sentry/sentry.module';
 import { I18nModule } from './i18n/i18n.module';
 import { SitemapModule } from './sitemap/sitemap.module';
+import { AdsenseModule } from './adsense/adsense.module';
 
 export const commandModules = [
   CreateModule,
@@ -26,4 +27,5 @@ export const commandModules = [
   SentryModule,
   I18nModule,
   SitemapModule,
+  AdsenseModule,
 ];

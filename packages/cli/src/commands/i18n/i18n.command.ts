@@ -118,7 +118,12 @@ module.exports = nextConfig
   }
 
   private createI18NPage() {
-    const pageFilePath = join(process.cwd(), 'src', 'app', 'i18n', 'page.tsx');
+    const pageDir = join(process.cwd(), 'src', 'app', 'i18n');
+    if (!existsSync(pageDir)) {
+      mkdirSync(pageDir);
+    }
+
+    const pageFilePath = join(pageDir, 'page.tsx');
 
     const pageContent = `'use client';
 

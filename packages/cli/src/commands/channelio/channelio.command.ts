@@ -126,7 +126,7 @@ export function ChannelIO() {
         // import 문 추가
         layoutContent = layoutContent.replace(
           /import/,
-          "import ChannelIO from '@/third-parties/Channelio';\nimport",
+          "import { ChannelIO } from '@/third-parties/Channelio';\nimport",
         );
 
         // return 문 찾기

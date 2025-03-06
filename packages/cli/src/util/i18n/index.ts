@@ -104,7 +104,7 @@ const resources: Record<LangCode, Record<string, string>> = {
     'channeltalk.id_required': 'Channel Talk ID is required',
 
     // Sentry 명령어 메시지
-    'sentry.installing': 'Installing Sentry...',
+    'sentry.installing': 'Run the following command to install Sentry:',
     'sentry.success': 'Sentry installed successfully',
     'sentry.error': 'Error installing Sentry',
     'sentry.dsn_required': 'Sentry DSN is required',
@@ -215,7 +215,7 @@ const resources: Record<LangCode, Record<string, string>> = {
     'channeltalk.id_required': 'Channel Talk ID가 필요합니다',
 
     // Sentry 명령어 메시지
-    'sentry.installing': 'Sentry 설치 중...',
+    'sentry.installing': 'Sentry 설치를 위해 아래 명령어를 실행해주세요.',
     'sentry.success': 'Sentry가 성공적으로 설치되었습니다',
     'sentry.error': 'Sentry 설치 중 오류가 발생했습니다',
     'sentry.dsn_required': 'Sentry DSN이 필요합니다',

@@ -22,19 +22,19 @@ const premiumTemplates = [
     name: "커뮤니티",
     description: "커뮤니티 템플릿",
     isLocked: true,
-    comingSoon: "03.03 공개 예정",
+    comingSoon: "03.23 공개 예정",
   },
   {
     name: "SaaS",
     description: "SaaS 템플릿",
     isLocked: true,
-    comingSoon: "03.17 공개 예정",
+    comingSoon: "03.30 공개 예정",
   },
   {
     name: "AI 서비스",
-    description: "전자상거래 템플릿",
+    description: "LLM API 연동 템플릿",
     isLocked: true,
-    comingSoon: "03.31 공개 예정",
+    comingSoon: "04.06 공개 예정",
   },
 ];
 

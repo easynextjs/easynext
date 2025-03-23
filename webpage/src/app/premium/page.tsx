@@ -21,7 +21,7 @@ const premiumTemplates = [
   {
     name: "커뮤니티",
     description: "커뮤니티 템플릿",
-    isLocked: true,
+    isLocked: false,
     comingSoon: "03.23 공개 예정",
   },
   {

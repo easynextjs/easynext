@@ -38,7 +38,7 @@ export function PremiumDialog({ children }: PremiumDialogProps) {
               <p className="font-medium text-sm text-muted-foreground">
                 프리미엄 이용자인 경우, 아래 명령어를 사용해주세요
                 <br />
-                (v0.1.13 버전 이상을 사용해주세요)
+                (v0.1.35 버전 이상을 사용해주세요)
               </p>
               <code className="mt-2 block bg-background p-2 rounded text-sm">
                 easynext create 프로젝트이름 -t landing

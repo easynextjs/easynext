@@ -22,7 +22,7 @@ const premiumTemplates = [
     name: "커뮤니티",
     description: "커뮤니티 템플릿",
     isLocked: false,
-    comingSoon: "03.23 공개 예정",
+    image: "/images/home/templates/community.png",
   },
   {
     name: "SaaS",

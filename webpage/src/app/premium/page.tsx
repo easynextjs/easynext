@@ -18,6 +18,7 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { CouponDialog } from "./_CouponDialog";
 import { PremiumDialog } from "./_PremiumDialog";
+import { TechStackSection } from "@/components/TechStackSection";
 
 const premiumTemplates = [
   {
@@ -274,6 +275,13 @@ export default function PremiumPage() {
               </Card>
             ))}
           </div>
+        </motion.div>
+
+        <Separator />
+
+        {/* 기술 스택 섹션 */}
+        <motion.div variants={itemVariants}>
+          <TechStackSection />
         </motion.div>
 
         <Separator />

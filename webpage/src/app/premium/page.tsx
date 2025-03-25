@@ -4,7 +4,15 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CheckCircle, Lock, Sparkles, ArrowRight } from "lucide-react";
+import {
+  CheckCircle,
+  Lock,
+  Sparkles,
+  ArrowRight,
+  Database,
+  Layout,
+  FileCode,
+} from "lucide-react";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -45,35 +53,41 @@ const features = [
   "지속적인 업데이트",
 ];
 
-// const testimonials = [
-//   {
-//     name: "김서연",
-//     role: "프리랜서 개발자",
-//     comment: "템플릿 덕분에 개발 시간을 50% 이상 단축할 수 있었어요.",
-//     rating: 5,
-//     avatar: "/images/avatars/1.png",
-//   },
-//   {
-//     name: "이준호",
-//     role: "스타트업 CEO",
-//     comment: "퀄리티 높은 템플릿으로 초기 비용을 크게 절감했습니다.",
-//     rating: 5,
-//     avatar: "/images/avatars/2.png",
-//   },
-//   {
-//     name: "박지민",
-//     role: "프로덕트 매니저",
-//     comment: "디자인부터 개발까지 완벽한 솔루션입니다.",
-//     rating: 5,
-//     avatar: "/images/avatars/3.png",
-//   },
-// ];
+const includedComponents = [
+  {
+    icon: Layout,
+    title: "바로 사용 가능한 컴포넌트",
+    description: "레이아웃, 버튼, 카드, 폼 등 재사용 가능한 컴포넌트",
+  },
+  {
+    icon: Database,
+    title: "데이터베이스 스키마",
+    description: "사용자, 인증, 기능별 데이터 모델 포함",
+  },
+  {
+    icon: FileCode,
+    title: "각종 기능 구현체",
+    description: "인증, 파일 업로드, API 연동 등 필수 기능 구현",
+  },
+];
 
-// const stats = [
-//   { label: "활성 사용자", value: "1,000+", icon: Users },
-//   { label: "기업 고객", value: "50+", icon: Building2 },
-//   { label: "평균 평점", value: "4.9", icon: Star },
-// ];
+const useCase = [
+  {
+    title: "실전 외주개발 템플릿",
+    description:
+      "실제로 외주개발할 때 사용하는 템플릿들입니다. 수많은 실전 프로젝트에서 검증된 코드 구조와 패턴을 포함합니다.",
+  },
+  {
+    title: "한국형 ShipFast",
+    description:
+      "한국의 ShipFast를 목표로, 한국 서비스에 최적화된 템플릿과 가이드를 제공합니다.",
+  },
+  {
+    title: "코드베이스를 활용해, 빠르게 출시하세요!",
+    description:
+      "템플릿으로 기본을 잡고, 디자인/DB를 수정하는 식으로 작업하세요. 필요한 부분만 수정해 빠르게 출시할 수 있습니다.",
+  },
+];
 
 const faqs = [
   {
@@ -193,24 +207,27 @@ export default function PremiumPage() {
           </div>
         </motion.div>
 
-        {/* 통계 섹션 */}
-        {/* <motion.div
-          variants={itemVariants}
-          className="grid grid-cols-1 md:grid-cols-3 gap-8"
-        >
-          {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="flex flex-col items-center justify-center p-6 bg-white rounded-xl shadow-sm border border-gray-700"
-            >
-              <stat.icon className="w-8 h-8 text-amber-600 mb-2" />
-              <div className="text-3xl font-bold text-amber-600">
-                {stat.value}
+        <Separator />
+
+        {/* 외주개발 템플릿 소개 섹션 */}
+        <motion.div variants={itemVariants} className="space-y-8">
+          <h2 className="text-3xl font-semibold text-center">
+            EasyNext 프리미엄 소개
+          </h2>
+          <div className="max-w-4xl mx-auto space-y-8">
+            {useCase.map((item, index) => (
+              <div
+                key={index}
+                className="p-6 bg-white rounded-xl shadow-sm border-2 border-gray-700 hover:shadow-md transition-all"
+              >
+                <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
+                <p className="text-muted-foreground text-lg">
+                  {item.description}
+                </p>
               </div>
-              <div className="text-muted-foreground">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div> */}
+            ))}
+          </div>
+        </motion.div>
 
         <Separator />
 
@@ -261,44 +278,28 @@ export default function PremiumPage() {
 
         <Separator />
 
-        {/* 테스티모니얼 섹션 */}
-        {/* <motion.div variants={itemVariants} className="space-y-8">
-          <h2 className="text-3xl font-semibold text-center">사용자 후기</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial) => (
-              <Card
-                key={testimonial.name}
-                className="p-6 space-y-4 border-2 border-gray-700"
+        {/* 포함 기능 섹션 */}
+        <motion.div variants={itemVariants} className="space-y-8">
+          <h2 className="text-3xl font-semibold text-center">포함 기능</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {includedComponents.map((component, index) => (
+              <div
+                key={index}
+                className="p-8 bg-white rounded-xl shadow-sm border-2 border-gray-700 flex flex-col items-center text-center hover:shadow-md transition-all"
               >
-                <div className="flex items-center gap-4">
-                  <Avatar className="w-12 h-12">
-                    <AvatarImage
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                    />
-                  </Avatar>
-                  <div>
-                    <h3 className="font-semibold">{testimonial.name}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role}
-                    </p>
-                  </div>
+                <div className="bg-amber-500/10 p-3 rounded-full mb-4">
+                  <component.icon className="w-8 h-8 text-amber-600" />
                 </div>
-                <div className="flex gap-1">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="w-4 h-4 fill-yellow-400 text-yellow-400"
-                    />
-                  ))}
-                </div>
-                <p className="text-muted-foreground">{testimonial.comment}</p>
-              </Card>
+                <h3 className="text-xl font-semibold mb-2">
+                  {component.title}
+                </h3>
+                <p className="text-muted-foreground">{component.description}</p>
+              </div>
             ))}
           </div>
         </motion.div>
 
-        <Separator /> */}
+        <Separator />
 
         {/* 특징 섹션 */}
         <motion.div

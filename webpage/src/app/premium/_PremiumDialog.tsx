@@ -16,9 +16,10 @@ import Link from "next/link";
 
 interface PremiumDialogProps {
   children: React.ReactNode;
+  templateName: string;
 }
 
-export function PremiumDialog({ children }: PremiumDialogProps) {
+export function PremiumDialog({ children, templateName }: PremiumDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -41,7 +42,7 @@ export function PremiumDialog({ children }: PremiumDialogProps) {
                 (v0.1.35 버전 이상을 사용해주세요)
               </p>
               <code className="mt-2 block bg-background p-2 rounded text-sm">
-                easynext create 프로젝트이름 -t landing
+                easynext create 프로젝트이름 -t {templateName}
               </code>
             </div>
           </DialogDescription>

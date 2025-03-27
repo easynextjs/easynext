@@ -26,24 +26,28 @@ const premiumTemplates = [
     description: "제품/서비스 소개 템플릿",
     isLocked: false,
     image: "/images/home/templates/landing.gif",
+    templateName: "landing",
   },
   {
     name: "커뮤니티",
     description: "커뮤니티 템플릿",
     isLocked: false,
     image: "/images/home/templates/community.png",
+    templateName: "community",
   },
   {
     name: "SaaS",
     description: "SaaS 템플릿",
     isLocked: true,
     comingSoon: "03.30 공개 예정",
+    templateName: "saas",
   },
   {
     name: "AI 서비스",
     description: "LLM API 연동 템플릿",
     isLocked: true,
     comingSoon: "04.06 공개 예정",
+    templateName: "ai",
   },
 ];
 
@@ -258,7 +262,7 @@ export default function PremiumPage() {
                       {template.description}
                     </p>
                   </div>
-                  <PremiumDialog>
+                  <PremiumDialog templateName={template.templateName}>
                     <Button
                       className={`w-full ${
                         template.isLocked ? "opacity-50 cursor-not-allowed" : ""

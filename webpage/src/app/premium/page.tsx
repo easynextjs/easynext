@@ -194,7 +194,7 @@ export default function PremiumPage() {
             <p className="text-muted-foreground/80">
               지금이 가장 저렴합니다!
               <br />
-              강의 구매 시 평생 무료 이용
+              사전예약 시 30% 할인
             </p>
             <div className="space-y-2">
               <PremiumStartButton />
@@ -369,11 +369,11 @@ export default function PremiumPage() {
               <span className="text-gray-700 line-through">299,900</span>{" "}
               <br className="md:hidden" />
               <span className="text-gray-900 font-bold whitespace-nowrap text-center">
-                강의 구매 시 평생 무료 이용
+                209,900원
               </span>
             </p>
             <div className="text-muted-foreground mb-4">
-              <p className="text-sm">* 얼리버드 기간 한정 특가</p>
+              <p className="text-sm">* 사전예약 한정 30% 할인</p>
             </div>
           </div>
           <PremiumStartButton />
@@ -391,8 +391,8 @@ function PremiumStartButton() {
       size="lg"
       className="rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-amber-600 to-yellow-600 group hover:scale-105"
     >
-      <Link href="https://fastcampus.co.kr/data_online_cursor" target="_blank">
-        프리미엄 시작하기
+      <Link href="https://getwaitlist.com/waitlist/27062" target="_blank">
+        프리미엄 사전예약
         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
       </Link>
     </Button>

@@ -11,7 +11,7 @@ import { useState } from "react";
 const menuItems = [
   {
     title: "프리미엄 시작하기",
-    href: "https://fastcampus.co.kr/data_online_cursor",
+    href: "https://getwaitlist.com/waitlist/27062",
     variant: "default" as "default" | "outline",
     className:
       "bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-700 hover:to-yellow-700",

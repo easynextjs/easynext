@@ -38,8 +38,8 @@ const premiumTemplates = [
   {
     name: "SaaS",
     description: "SaaS 템플릿",
-    isLocked: true,
-    comingSoon: "03.30 공개 예정",
+    isLocked: false,
+    image: "/images/home/templates/saas.gif",
     templateName: "saas",
   },
   {

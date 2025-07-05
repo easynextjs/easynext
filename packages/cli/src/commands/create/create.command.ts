@@ -3,7 +3,7 @@ import { AbstractCommand } from '../abstract.command';
 import { createApp } from './create-app';
 import { getPkgManager } from './helpers/get-pkg-manager';
 import { validateNpmName } from './helpers/validate-pkg';
-import { basename, resolve } from 'path';
+import { basename, resolve, join } from 'path';
 import { extract } from 'tar';
 import axios from 'axios';
 import { AuthConfig } from '@/global/config/auth.config';
@@ -13,7 +13,6 @@ import { install } from './helpers/install';
 import { getOnline } from './helpers/is-online';
 import { writeFile } from 'fs/promises';
 import { tmpdir } from 'os';
-import { join } from 'path';
 import AdmZip from 'adm-zip';
 import { isFolderEmpty } from './helpers/is-folder-empty';
 import { mkdirSync } from 'fs';
@@ -21,6 +20,7 @@ import i18n from '@/util/i18n';
 
 interface CreateCommandOptions {
   template?: string;
+  path?: string;
 }
 
 @Command({
@@ -37,9 +37,14 @@ export class CreateCommand extends AbstractCommand {
     passedParam: string[],
     options?: CreateCommandOptions,
   ): Promise<void> {
-    const projectPath = passedParam[0].trim();
+    const projectName = passedParam[0].trim();
 
-    const appPath = resolve(projectPath);
+    // path 옵션이 있으면 지정된 경로에 프로젝트 생성, 없으면 현재 디렉토리
+    const projectPath = options?.path
+      ? join(resolve(options.path), projectName)
+      : resolve(projectName);
+
+    const appPath = projectPath;
     const appName = basename(appPath);
 
     const validation = validateNpmName(appName);
@@ -172,6 +177,14 @@ export class CreateCommand extends AbstractCommand {
     description: '사용할 템플릿 이름',
   })
   parseTemplate(val: string): string {
+    return val;
+  }
+
+  @Option({
+    flags: '-p, --path [directory]',
+    description: '프로젝트를 생성할 경로',
+  })
+  parseDirectory(val: string): string {
     return val;
   }
 }

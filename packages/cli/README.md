@@ -53,6 +53,14 @@ $ easynext lang <'ko' | 'en'>
 # Create a new project
 $ easynext create <project-name>
 
+# Create a new project in specific directory
+$ easynext create <project-name> --path <directory>
+
+# Create a new project in specific directory
+$ easynext create <project-name> --path <directory>
+# Example: create in subfolder
+$ easynext create my-app --path ./subfolder
+
 # Init supabase
 $ easynext supabase
 

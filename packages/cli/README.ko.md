@@ -49,6 +49,11 @@ $ easynext lang <'ko' | 'en'>
 # 새 프로젝트 생성
 $ easynext create <project-name>
 
+# 특정 경로에 새 프로젝트 생성
+$ easynext create <project-name> --path <경로>
+# 예시: 하위 폴더에 생성
+$ easynext create my-app --path ./subfolder
+
 # supabase 사용 설정
 $ easynext supabase
 ```

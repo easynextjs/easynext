@@ -1,0 +1,12 @@
+---
+alwaysApply: true
+---
+
+## Must
+
+- you MUST use `pnpm` as package manager.
+
+## Architecture
+
+- `packages/cli`: cli using nest-commander
+- `webpage`: Next.js web application

@@ -1,0 +1,105 @@
+---
+alwaysApply: true
+---
+
+# NestCommander Cursor Rules
+
+## Project Context
+
+You are working with a NestJS-based CLI application using the `nest-commander` package. This framework brings NestJS's familiar decorator-based structure to command-line applications built on top of Commander.js.
+
+## Core Implementation Guidelines
+
+### Command Structure
+
+- Every command class MUST implement `CommandRunner` abstract class
+- Every command class MUST be decorated with `@Command()` decorator
+- Every command class MUST implement `run(passedParams: string[], options?: Record<string, any>): Promise<void>`
+- Commands are treated as `@Injectable()` - standard NestJS dependency injection applies
+
+### Decorators Usage
+
+```typescript
+// Command decorator - defines CLI command
+@Command({
+  name: string,              // required
+  arguments?: string,        // optional: '<required>' or '[optional]'
+  description?: string,      // optional: shown in --help
+  argsDescription?: Record<string, string>,  // optional: argument descriptions
+  options?: CommandOptions   // optional: extra commander options
+})
+
+// Option decorator - defines command flags
+@Option({
+  flags: string,            // required: '-s, --string <value>' or '-s, --string [value]'
+  description?: string,     // optional: shown in --help
+  defaultValue?: string | boolean  // optional: default value
+})
+```
+
+### Type Safety Pattern
+
+Always define interfaces for command options:
+
+```typescript
+interface MyCommandOptions {
+  stringOption?: string;
+  numberOption?: number;
+  booleanOption?: boolean;
+}
+```
+
+### Option Parsing Rules
+
+- All CLI inputs are raw strings - transform them in option methods
+- For boolean parsing, use `JSON.parse(val)` NOT `Boolean(val)`
+- Option method names must match the property names in the options object
+- Return transformed values from option methods
+
+### Bootstrap Pattern
+
+```typescript
+import { CommandFactory } from 'nest-commander';
+import { AppModule } from './app.module';
+
+async function bootstrap() {
+  await CommandFactory.run(AppModule);
+  // Or with logging: CommandFactory.run(AppModule, ['error', 'warn']);
+}
+bootstrap();
+```
+
+### Testing Pattern
+
+Use `CommandTestFactory` instead of `CommandFactory`:
+
+```typescript
+const module = await CommandTestFactory.createTestingCommand({
+  imports: [AppModule],
+}).compile();
+```
+
+## Code Generation Rules
+
+When generating command classes:
+
+1. Always implement CommandRunner
+2. Always type the options parameter
+3. Always handle undefined/null option values
+4. Always add the command to a module's providers
+5. Never use Boolean() for parsing boolean strings
+
+## Error Handling
+
+- Wrap CommandFactory.run() in try/catch or use .catch()
+- Commands should handle their own errors within the run() method
+- Use NestJS logger when needed (pass to CommandFactory.run)
+
+## Best Practices
+
+- Keep command logic in the run() method
+- Use dependency injection for services
+- Create focused, single-purpose commands
+- Document all options with descriptions
+- Use type-safe interfaces for options
+- Follow NestJS naming conventions

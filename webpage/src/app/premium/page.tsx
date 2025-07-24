@@ -177,7 +177,7 @@ export default function PremiumPage() {
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 rounded-full text-amber-600 mb-4">
             <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">얼리버드 할인 진행 중</span>
+            <span className="text-sm font-medium">프리미엄 템플릿</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold leading-[1.3] text-gray-900">
             출시까지 걸리는 시간을
@@ -192,9 +192,7 @@ export default function PremiumPage() {
 
           <div className="flex flex-col items-center gap-4">
             <p className="text-muted-foreground/80">
-              지금이 가장 저렴합니다!
-              <br />
-              사전예약 시 30% 할인
+              지금 바로 프리미엄 템플릿을 만나보세요!
             </p>
             <div className="space-y-2">
               <PremiumStartButton />
@@ -360,21 +358,16 @@ export default function PremiumPage() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-amber-500/10 rounded-full text-amber-600 mb-4">
               <Sparkles className="w-4 h-4" />
-              <span className="text-sm font-medium">출시 기념 혜택!</span>
+              <span className="text-sm font-medium">프리미엄 혜택!</span>
             </div>
             <h2 className="text-4xl font-bold text-gray-900 break-keep">
-              지금이 가장 저렴합니다!
+              지금 바로 시작하세요!
             </h2>
             <p className="text-2xl font-medium">
-              <span className="text-gray-700 line-through">299,900</span>{" "}
-              <br className="md:hidden" />
               <span className="text-gray-900 font-bold whitespace-nowrap text-center">
                 209,900원
               </span>
             </p>
-            <div className="text-muted-foreground mb-4">
-              <p className="text-sm">* 사전예약 한정 30% 할인</p>
-            </div>
           </div>
           <PremiumStartButton />
         </motion.div>
@@ -391,8 +384,8 @@ function PremiumStartButton() {
       size="lg"
       className="rounded-full px-8 py-6 text-lg shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-amber-600 to-yellow-600 group hover:scale-105"
     >
-      <Link href="https://getwaitlist.com/waitlist/27062" target="_blank">
-        프리미엄 사전예약
+      <Link href="https://www.latpeed.com/products/Zcysg" target="_blank">
+        구매하기
         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
       </Link>
     </Button>

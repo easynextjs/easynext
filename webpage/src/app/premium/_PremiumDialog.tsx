@@ -29,11 +29,11 @@ export function PremiumDialog({ children, templateName }: PremiumDialogProps) {
             프리미엄 구매가 필요합니다
           </DialogTitle>
           <DialogDescription className="pt-4 text-base">
-            <Badge>얼리버드 ✨</Badge>
+            <Badge>프리미엄 템플릿</Badge>
             <div className="mt-2">
-              지금 강의를 구매하시면
+              지금 구매하시면
               <br />
-              프리미엄 템플릿을 평생 무료로 이용할 수 있습니다.
+              프리미엄 템플릿을 이용할 수 있습니다.
             </div>
             <div className="mt-4 p-4 bg-muted rounded-lg">
               <p className="font-medium text-sm text-muted-foreground">
@@ -53,11 +53,11 @@ export function PremiumDialog({ children, templateName }: PremiumDialogProps) {
             className="w-full sm:w-auto bg-gradient-to-r from-amber-600 to-yellow-600"
           >
             <Link
-              href="https://fastcampus.co.kr/data_online_cursor"
+              href="https://www.latpeed.com/products/Zcysg"
               target="_blank"
               className="flex items-center justify-center gap-2"
             >
-              강의 구매하기
+              구매하기
               <ArrowRight className="w-4 h-4" />
             </Link>
           </Button>
